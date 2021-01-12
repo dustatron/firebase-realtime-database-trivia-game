@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en" id="top-of-site">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    Basic Shapes &amp; Path... Never the Twain Shall Meet? | CSS-Tricks  </title>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="rgb(255, 122, 24)">
+<meta property="fb:pages" content="124436167285">
+<meta name="monetization" content="$ilp.uphold.com/biyqg2MkQKbe">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="CSS-Tricks Search">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://css-tricks.com/feed/">
+<link rel="stylesheet" href="https://cloud.typography.com/610186/6350832/css/fonts.css">
+<link rel="stylesheet" href="https://css-tricks.com/wp-content/themes/CSS-Tricks-18/style.css?cache_bust=1610395945402">
+<link rel="preconnect" href="https://s3.buysellads.com">
+<link rel="dns-prefetch" href="https://s3.buysellads.com">
+<link rel="preconnect" href="https://srv.buysellads.com">
+<link rel="dns-prefetch" href="https://srv.buysellads.com">
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://static.codepen.io">
+<link rel="dns-prefetch" href="https://static.codepen.io">
+<script>window._wca = window._wca || [];</script>
+
+<meta name="description" content="There are some values available in CSS that allow shapes to be drawn. For example, there is a circle() function that is a valid value for a couple of CSS" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<link rel="canonical" href="https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Basic Shapes &amp; Path... Never the Twain Shall Meet? | CSS-Tricks" />
+<meta property="og:description" content="There are some values available in CSS that allow shapes to be drawn. For example, there is a circle() function that is a valid value for a couple of CSS" />
+<meta property="og:url" content="https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/" />
+<meta property="og:site_name" content="CSS-Tricks" />
+<meta property="article:publisher" content="https://www.facebook.com/CSSTricks" />
+<meta property="article:published_time" content="2017-02-07T17:26:13+00:00" />
+<meta property="og:image" content="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?fit=500%2C420&#038;ssl=1" />
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="420" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@chriscoyier" />
+<meta name="twitter:site" content="@CSS" />
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Chris Coyier">
+<meta name="twitter:label2" content="Est. reading time">
+<meta name="twitter:data2" content="4 minutes">
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://css-tricks.com/#organization","name":"CSS-Tricks","url":"https://css-tricks.com/","sameAs":["https://www.facebook.com/CSSTricks","https://www.instagram.com/real_css_tricks/","https://www.youtube.com/channel/UCADyUOnhyEoQqrw_RrsGleA","https://twitter.com/CSS"],"logo":{"@type":"ImageObject","@id":"https://css-tricks.com/#logo","inLanguage":"en-US","url":"https://i0.wp.com/css-tricks.com/wp-content/uploads/2019/06/akqRGyta_400x400.jpg?fit=%2C&ssl=1","caption":"CSS-Tricks"},"image":{"@id":"https://css-tricks.com/#logo"}},{"@type":"WebSite","@id":"https://css-tricks.com/#website","url":"https://css-tricks.com/","name":"CSS-Tricks","description":"Tips, Tricks, and Techniques on using Cascading Style Sheets.","publisher":{"@id":"https://css-tricks.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":"https://css-tricks.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#primaryimage","inLanguage":"en-US","url":"https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?fit=500%2C420&ssl=1","width":500,"height":420},{"@type":"WebPage","@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#webpage","url":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/","name":"Basic Shapes & Path... Never the Twain Shall Meet? | CSS-Tricks","isPartOf":{"@id":"https://css-tricks.com/#website"},"primaryImageOfPage":{"@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#primaryimage"},"datePublished":"2017-02-07T17:26:13+00:00","dateModified":"2017-02-07T17:26:13+00:00","description":"There are some values available in CSS that allow shapes to be drawn. For example, there is a circle() function that is a valid value for a couple of CSS","breadcrumb":{"@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/"]}]},{"@type":"BreadcrumbList","@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://css-tricks.com/","url":"https://css-tricks.com/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/","url":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/","name":"Basic Shapes &#038; Path&#8230; Never the Twain Shall Meet?"}}]},{"@type":"Article","@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#article","isPartOf":{"@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#webpage"},"author":{"@id":"https://css-tricks.com/#/schema/person/439366a88619858a797824d5498cf50f"},"headline":"Basic Shapes &#038; Path&#8230; Never the Twain Shall Meet?","datePublished":"2017-02-07T17:26:13+00:00","dateModified":"2017-02-07T17:26:13+00:00","mainEntityOfPage":{"@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#webpage"},"commentCount":2,"publisher":{"@id":"https://css-tricks.com/#organization"},"image":{"@id":"https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#primaryimage"},"keywords":"basic shapes,exclusions,path,shapes","articleSection":"Article","inLanguage":"en-US"},{"@type":"Person","@id":"https://css-tricks.com/#/schema/person/439366a88619858a797824d5498cf50f","name":"Chris Coyier","image":{"@type":"ImageObject","@id":"https://css-tricks.com/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/8081b26e05bb4354f7d65ffc34cbbd67?s=96&d=retro&r=pg","caption":"Chris Coyier"},"description":"Founder, writer, designer, spam-deleter, email personality","sameAs":["http://chriscoyier.net","https://twitter.com/chriscoyier"]}]}</script>
+
+<link rel='dns-prefetch' href='//stats.wp.com' />
+<link rel='dns-prefetch' href='//i0.wp.com' />
+<link rel='dns-prefetch' href='//i1.wp.com' />
+<link rel='dns-prefetch' href='//i2.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="CSS-Tricks &raquo; Basic Shapes &#038; Path&#8230; Never the Twain Shall Meet? Comments Feed" href="https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/feed/" />
+<style id='woocommerce-inline-inline-css' type='text/css'>
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel='stylesheet' id='jetpack-instant-search-css' href='https://css-tricks.com/wp-content/plugins/jetpack/_inc/build/instant-search/jp-search.bundle.css?ver=9.2.1' type='text/css' media='all' />
+<script src='https://css-tricks.com/wp-content/themes/CSS-Tricks-18/js/min/jquery-3.5.1.min.js' id='jquery-js'></script>
+<script type='text/javascript' id='jetpack_related-posts-js-extra'>
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script src='https://css-tricks.com/wp-content/plugins/jetpack/_inc/build/related-posts/related-posts.min.js?ver=20191011' id='jetpack_related-posts-js'></script>
+<script async defer src='https://stats.wp.com/s-202102.js' id='woocommerce-analytics-js'></script>
+<link rel="https://api.w.org/" href="https://css-tricks.com/wp-json/" /><link rel="alternate" type="application/json" href="https://css-tricks.com/wp-json/wp/v2/posts/249797" /><link rel='shortlink' href='https://css-tricks.com/?p=249797' />
+<link rel="alternate" type="application/json+oembed" href="https://css-tricks.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcss-tricks.com%2Fbasic-shapes-path-never-twain-shall-meet%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://css-tricks.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcss-tricks.com%2Fbasic-shapes-path-never-twain-shall-meet%2F&#038;format=xml" />
+
+<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+<style type="text/css">
+				/* If html does not have either class, do not show lazy loaded images. */
+				html:not( .jetpack-lazy-images-js-enabled ):not( .js ) .jetpack-lazy-image {
+					display: none;
+				}
+			</style>
+<script>
+				document.documentElement.classList.add(
+					'jetpack-lazy-images-js-enabled'
+				);
+			</script>
+</head>
+<body class="post-template-default single single-post postid-249797 single-format-standard theme-CSS-Tricks-18 woocommerce-no-js category-article">
+<div id="top-of-site-pixel-anchor"></div>
+<div class="page-wrap">
+<header class="site-header" id="site-header">
+<a id="skip-nav" class="skip-nav screen-reader-text" href="#maincontent">Skip to main content</a>
+<div class="logo">
+<a href="/">
+<div class="screen-reader-text">CSS-Tricks</div>
+<svg class="icon-logo-star" width="35px" height="35px" viewBox="0 0 362.62 388.52" data-spin-me="false">
+<path d="M156.58,239l-88.3,64.75c-10.59,7.06-18.84,11.77-29.43,11.77-21.19,0-38.85-18.84-38.85-40C0,257.83,14.13,244.88,27.08,239l103.6-44.74L27.08,148.34C13,142.46,0,129.51,0,111.85,0,90.66,18.84,73,40,73c10.6,0,17.66,3.53,28.25,11.77l88.3,64.75L144.81,44.74C141.28,20,157.76,0,181.31,0s40,18.84,36.5,43.56L206,149.52l88.3-64.75C304.93,76.53,313.17,73,323.77,73a39.2,39.2,0,0,1,38.85,38.85c0,18.84-12.95,30.61-27.08,36.5L231.93,194.26,335.54,239c14.13,5.88,27.08,18.83,27.08,37.67,0,21.19-18.84,38.85-40,38.85-9.42,0-17.66-4.71-28.26-11.77L206,239l11.77,104.78c3.53,24.72-12.95,44.74-36.5,44.74s-40-18.84-36.5-43.56Z" />
+</svg>
+<svg class="icon-logo-text" width="214px" height="35px" viewBox="0 0 474.15 58.26">
+<path d="M46 42.57a4.5 4.5 0 0 0-3 1.13c-4.1 3.46-8.13 5.39-14.08 5.39-10.78 0-18.58-8.93-18.58-20v-.09c0-11 7.88-19.87 18.58-19.87a20.42 20.42 0 0 1 13.48 5.03 4.95 4.95 0 0 0 7.88-3.86 4.94 4.94 0 0 0-1.93-3.94c-4.91-3.79-10.62-6.36-19.35-6.36-17 0-29 13.12-29 29.13v.16c0 16.17 12.23 29 28.64 29 9.09 0 15.12-2.9 20.43-7.56a4.76 4.76 0 0 0 1.61-3.54 4.71 4.71 0 0 0-4.68-4.62zm36.86-17.95c-10.86-2.62-13.43-4.5-13.43-8.85v-.16c0-3.7 3.38-6.68 9.17-6.68 4.43 0 8.61 1.45 13 4.26a4.78 4.78 0 0 0 2.57.72 4.6 4.6 0 0 0 4.67-4.59 4.47 4.47 0 0 0-2.17-3.94 31 31 0 0 0-17.91-5.22c-11.18 0-19.23 6.68-19.23 16.34v.16c0 10.38 6.76 13.92 18.74 16.82 10.46 2.41 12.73 4.58 12.73 8.6v.16c0 4.18-3.86 7.08-10 7.08a24.42 24.42 0 0 1-15.77-5.79 4.79 4.79 0 0 0-7.56 3.7 4.64 4.64 0 0 0 1.94 3.77 35.05 35.05 0 0 0 21.16 7.1c11.83 0 20.11-6.28 20.11-16.82v-.16c0-9.34-6.11-13.6-18.02-16.5zm49.88 0c-10.86-2.57-13.43-4.51-13.43-8.85v-.16c0-3.7 3.38-6.68 9.17-6.68 4.42 0 8.61 1.45 13 4.26a4.78 4.78 0 0 0 2.57.72 4.6 4.6 0 0 0 4.67-4.59 4.47 4.47 0 0 0-2.17-3.94 31 31 0 0 0-17.91-5.22c-11.18 0-19.23 6.68-19.23 16.33v.16c0 10.38 6.76 13.92 18.74 16.82 10.46 2.41 12.71 4.59 12.71 8.61v.16c0 4.18-3.86 7.08-10 7.08a24.42 24.42 0 0 1-15.77-5.79 4.79 4.79 0 0 0-7.56 3.7 4.64 4.64 0 0 0 1.96 3.77 35.05 35.05 0 0 0 21.16 7.08c11.83 0 20.11-6.28 20.11-16.82v-.16c0-9.32-6.11-13.58-18.02-16.48zm45.62 3.22h-15.13a4.79 4.79 0 0 0 0 9.58h15.12a4.79 4.79 0 0 0 0-9.58zm45.64-26.84h-37.45a4.59 4.59 0 0 0 0 9.17h13.68v42.62a5 5 0 0 0 10 0v-42.65h13.77a4.59 4.59 0 0 0 0-9.14zm38.86 0h-20.15a4.91 4.91 0 0 0-5 5v46.79a4.95 4.95 0 0 0 9.89 0v-15.13h12.47l13.68 17.46a5.65 5.65 0 0 0 4.83 2.58 4.67 4.67 0 0 0 4.75-4.59 5.74 5.74 0 0 0-1.61-3.78l-10.78-13.6c7.56-2.33 12.79-7.81 12.79-16.82v-.16a17 17 0 0 0-4.66-12.15c-3.62-3.54-9.17-5.6-16.25-5.6zm10.86 18.51c0 5.71-4.51 9.41-11.58 9.41h-14.53v-18.92h14.39c7.32 0 11.67 3.3 11.67 9.33zm27-18.91a4.89 4.89 0 0 0-5 4.91v47.28a4.95 4.95 0 0 0 9.89 0v-47.32a4.88 4.88 0 0 0-4.98-4.91zm62.67 42a4.5 4.5 0 0 0-3 1.13c-4.1 3.46-8.13 5.39-14.08 5.39-10.78 0-18.58-8.93-18.58-20v-.12c0-11 7.88-19.87 18.58-19.87a20.42 20.42 0 0 1 13.44 5.07 4.95 4.95 0 0 0 7.88-3.86 4.94 4.94 0 0 0-1.93-3.94c-4.98-3.83-10.7-6.4-19.38-6.4-17.06 0-29 13.12-29 29.13v.16c0 16.17 12.23 29 28.64 29 9.09 0 15.12-2.9 20.43-7.56a4.76 4.76 0 0 0 1.61-3.58 4.71 4.71 0 0 0-4.7-4.58zm41-16.82l17.54-16.9a4.81 4.81 0 0 0 1.77-3.7 4.53 4.53 0 0 0-4.7-4.62 5.2 5.2 0 0 0-4.1 1.85l-26.66 26.88v-23.82a4.95 4.95 0 0 0-9.9 0v47.32a4.95 4.95 0 0 0 9.9 0v-11.67l9.17-8.85 18.1 23.09a5 5 0 0 0 4.18 2.33 4.83 4.83 0 0 0 5-4.83 5.36 5.36 0 0 0-1.37-3.54zm51.8-1.13c-10.92-2.65-13.49-4.53-13.49-8.88v-.16c0-3.7 3.38-6.68 9.17-6.68 4.42 0 8.61 1.45 13 4.26a4.78 4.78 0 0 0 2.57.72 4.6 4.6 0 0 0 4.67-4.59 4.47 4.47 0 0 0-2.17-3.94 31 31 0 0 0-17.94-5.22c-11.15 0-19.2 6.68-19.2 16.34v.16c0 10.38 6.76 13.92 18.74 16.82 10.46 2.41 12.71 4.59 12.71 8.61v.16c0 4.18-3.86 7.08-10 7.08a24.42 24.42 0 0 1-15.77-5.79 4.79 4.79 0 0 0-7.56 3.7 4.64 4.64 0 0 0 1.96 3.76 35.05 35.05 0 0 0 21.12 7.1c11.83 0 20.11-6.28 20.11-16.82v-.16c.04-9.34-6.11-13.6-17.98-16.5z" />
+</svg> </a>
+</div>
+<div class="header-middle-area">
+<nav class="main-nav" id="main-nav">
+<ul>
+<li class="articles">
+<a href="/archives/">
+<span>Articles</span>
+</a>
+</li>
+<li class="videos">
+<a href="/video-screencasts/">
+<span>Videos</span>
+</a>
+</li>
+<li class="almanac">
+<a href="/almanac/">
+<span>Almanac</span>
+</a>
+</li>
+<li class="newsletter">
+<a href="/newsletters/">
+<span>Newsletter</span>
+</a>
+</li>
+<li class="guides">
+<a href="/guides/">
+<span>Guides</span>
+</a>
+</li>
+<li class="books">
+<a href="/books/">
+<span>Books</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="search-and-account">
+<a href="https://www.google.com/search?q=site:css-tricks.com%20layout" class="jetpack-search-filter__link">
+<span class="screen-reader-text">Search</span>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.0726 10.4326C12.4801 10.4326 10.4 12.5451 10.4 15.1053C10.4 17.6978 12.5125 19.7779 15.0726 19.7779C17.6651 19.7779 19.7453 17.6654 19.7453 15.1053C19.744 12.544 17.664 10.4326 15.0726 10.4326Z" fill="white" />
+<path d="M16.0327 0.447479C7.42401 0.447479 0.447693 7.4238 0.447693 16.0324C0.447693 24.6398 7.42401 31.6161 16.0314 31.6161C24.64 31.6161 31.6163 24.6398 31.6163 16.0324C31.6163 7.4238 24.64 0.447479 16.0327 0.447479ZM23.6163 24.0324C23.3926 24.2562 23.0401 24.385 22.6563 24.385C22.2726 24.385 21.9526 24.2575 21.6963 24.0324L18.7526 21.0887L18.4651 21.2487C17.4088 21.825 16.2576 22.145 15.0724 22.145C11.1998 22.145 8.06509 19.0087 8.06509 15.1376C8.06509 11.265 11.2013 8.13023 15.0724 8.13023C18.9451 8.13023 22.0798 11.2665 22.0798 15.1376C22.0798 16.5138 21.6961 17.8251 20.9273 18.9776L20.7348 19.2976L23.6473 22.2101C23.8711 22.4664 24.0311 22.7864 24.0311 23.1376C23.9998 23.4563 23.8723 23.7763 23.616 24.0326L23.6163 24.0324Z" fill="white" />
+</svg>
+</a>
+<a href="/product/membership/">
+<span class="screen-reader-text">Account</span>
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17 1.7C11.5335 1.7 6.48243 4.61655 3.74917 9.35C1.0172 14.0835 1.0172 19.9165 3.74917 24.65C6.48246 29.3835 11.5335 32.3 17 32.3C20.4918 32.3133 23.8809 31.1193 26.5917 28.9199C29.9014 26.2557 31.9559 22.3365 32.2602 18.0984C32.5657 13.8603 31.0954 9.68748 28.2003 6.57682C25.3063 3.46636 21.249 1.69986 17.0003 1.69986L17 1.7ZM27.9956 24.411C27.2651 22.1412 25.014 20.2514 21.9925 19.2447C20.7069 20.6405 18.8967 21.4361 17 21.4361C15.1021 21.4347 13.292 20.6405 12.0074 19.2447C8.98463 20.2514 6.73335 22.1413 6.00439 24.411C4.20212 21.7388 3.43579 18.5008 3.8475 15.3041C4.25921 12.1073 5.82242 9.17082 8.24234 7.04174C10.6622 4.91276 13.7752 3.7387 16.9987 3.7387C20.2221 3.7387 23.3353 4.91276 25.7564 7.04041C28.1763 9.16939 29.7395 12.1057 30.1513 15.3027C30.563 18.4995 29.7966 21.7376 27.9957 24.411L27.9956 24.411Z" fill="white" />
+<path d="M22.5049 13.6092C22.5049 16.9919 20.0399 19.736 17 19.736C13.9586 19.736 11.4937 16.9921 11.4937 13.6092C11.4937 10.2251 13.9587 7.48236 17 7.48236C20.0401 7.48236 22.5049 10.2249 22.5049 13.6092Z" fill="white" />
+</svg>
+</a>
+</div>
+</div>
+</header>
+<script>
+  var articleYear = 2017;
+  var articleAuthor = "3";
+  var articleType = "post";
+</script>
+<main id="post-249797">
+<article>
+<header class="mega-header">
+<style>
+    body::after {
+      opacity: 0.91;
+    }
+    body::before {
+      content: "";
+      background-image: 
+        url(https://css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png);
+    }
+  </style>
+<div class="tags">
+<a href="https://css-tricks.com/tag/basic-shapes/" rel="tag">basic shapes</a> <a href="https://css-tricks.com/tag/exclusions/" rel="tag">exclusions</a> <a href="https://css-tricks.com/tag/path/" rel="tag">path</a> <a href="https://css-tricks.com/tag/shapes/" rel="tag">shapes</a> </div>
+<h1 class="article-title">
+Basic Shapes &#038; Path&#8230; Never the Twain Shall&nbsp;Meet? </h1>
+<div class="author-row">
+<a href="https://css-tricks.com/author/chriscoyier/" aria-label="Author page of Chris Coyier">
+<img alt="Avatar of Chris Coyier" src="https://secure.gravatar.com/avatar/8081b26e05bb4354f7d65ffc34cbbd67?s=80&#038;d=retro&#038;r=pg" srcset="https://secure.gravatar.com/avatar/8081b26e05bb4354f7d65ffc34cbbd67?s=160&#038;d=retro&#038;r=pg 2x" class="avatar avatar-80 photo skip-lazy" height="80" width="80" loading="lazy"><noscript><img alt='Avatar of Chris Coyier' src='https://secure.gravatar.com/avatar/8081b26e05bb4354f7d65ffc34cbbd67?s=80&#038;d=retro&#038;r=pg' srcset='https://secure.gravatar.com/avatar/8081b26e05bb4354f7d65ffc34cbbd67?s=160&#038;d=retro&#038;r=pg 2x' class='avatar avatar-80 photo skip-lazy' height='80' width='80' loading='lazy'/></noscript> </a>
+<div>
+<a class="author-name" href="https://css-tricks.com/author/chriscoyier/">
+Chris Coyier </a>
+on
+<time title="Originally published Feb 7, 2017" datetime="">
+Feb 7, 2017 </time>
+</div>
+</div>
+</header>
+<div class="articles-and-sidebar">
+<div>
+<div class="article-sponsor">
+<div>
+<p>
+Learn Development at <a href="https://frontendmasters.com/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-monthly-site-sponsor">Frontend Masters</a>
+</p>
+</div>
+</div>
+<div class="article-content">
+<p>There are some values available in CSS that allow shapes to be drawn. For example, there is a <code>circle()</code> function that is a valid value for a couple of CSS properties. &#8220;Drawn&#8221; might not be the right word, though. It&#8217;s not like in SVG where you can create a <code>&lt;circle&gt;</code> element and it will literally draw a circle. </p>
+<p><span id="more-249797"></span></p>
+<p>These shapes in CSS are for other things. Namely: <code>clip-path</code>, which is for making clipping masks, and <code>shape-outside</code>, for flowing text around shapes.</p>
+<p>There are some other CSS properties that use SVG-like shapes for doing what they do. For example, <code>offset-path</code> is part of animating elements along vector paths, using the <code>path()</code> function. Paths are awesome. They are the ultimate drawing element, as they <a href="https://css-tricks.com/svg-path-syntax-illustrated-guide/">can draw anything</a>, and all the other shapes are essentially syntactic sugar for paths.</p>
+<h3><a href="#what-are-the-basic-shapes" aria-hidden="true" class="aal_anchor" id="what-are-the-basic-shapes"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What are the basic shapes?</h3>
+<p>There are four <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape">basic shapes</a>:</p>
+<ul>
+<li><code>polygon()</code></li>
+<li><code>circle()</code></li>
+<li><code>ellipse()</code></li>
+<li><code>inset()</code></li>
+</ul>
+<h3><a href="#what-are-paths" aria-hidden="true" class="aal_anchor" id="what-are-paths"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What are paths?</h3>
+<p>Paths come from SVG. They have <a href="https://css-tricks.com/svg-path-syntax-illustrated-guide/">a special syntax</a> that allows them to draw anything.</p>
+<pre rel="HTML"><code class="language-markup">&lt;path d="M 25,100 C 25,150 75,150 75,100 S 100,25 150,75" /&gt;</code></pre>
+<pre rel="CSS"><code class="language-css">path("M 25,100 C 25,150 75,150 75,100 S 100,25 150,75");</code></pre>
+<h3><a href="#this-is-where-things-get-kinda-weird" aria-hidden="true" class="aal_anchor" id="this-is-where-things-get-kinda-weird"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>This is where things get kinda weird</h3>
+<ul>
+<li>The <code>clip-path</code> and <code>shape-outside</code> properties can take all the &#8220;basic shapes&#8221; like <code>circle()</code> and <code>polygon()</code>, but not <code>path().</code></li>
+<li>The <code>offset-path</code> properties can take <code>path()</code>, but not the &#8220;basic shapes&#8221;.</li>
+<li>You can control the <code>d</code> attribute of a <code>&lt;path&gt;</code> through CSS also, but not the attributes of many other SVG elements.</li>
+</ul>
+<p>I&#8217;m not really sure why any of this is, and I&#8217;m sure things will change in time, but it&#8217;s good to know about.</p>
+<p>Let&#8217;s elaborate.</p>
+<h3><a href="#clip-path-allows-basic-shapes-but-not-path" aria-hidden="true" class="aal_anchor" id="clip-path-allows-basic-shapes-but-not-path"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>clip-path</code> allows Basic Shapes (but not <code>path()</code>)</h3>
+<p>Say you wanted to clip square avatars into polygons, for a fun design. You can! The image is might be an HTML element like:</p>
+<pre rel="HTML"><code class="language-markup">&lt;img src="avatar.jpg" alt="User Avatar" class="avatar"&gt;</code></pre>
+<pre rel="CSS"><code class="language-css">.avatar {
+  clip-path: polygon(0% 5%, 100% 0%, 100% 85%, 65% 80%, 75% 100%, 40% 80%, 0% 75%);
+}</code></pre>
+<p data-height="411" style="height: 411px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="QdBbog" data-default-tab="result" data-user="chriscoyier" data-embed-version="2" data-pen-title="Clipped Avatars" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/QdBbog/">Clipped Avatars</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p>But let&#8217;s say you want to clip the avatar like this: </p>
+<figure id="post-251080" class="align-none media-251080"><img src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?ssl=1" alt data-recalc-dims="1" data-lazy-srcset="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?w=500&amp;ssl=1 500w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?resize=300%2C252&amp;ssl=1 300w" data-lazy-sizes="(min-width: 735px) 864px, 96vw" data-lazy-src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class=" jetpack-lazy-image"><noscript><img sizes="(min-width: 735px) 864px, 96vw" srcset="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?w=500&ssl=1 500w, https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?resize=300%2C252&ssl=1 300w" src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/02/round-clip-path.png?ssl=1" alt="" data-recalc-dims="1" /></noscript></figure>
+<p>Well, you can&#8217;t. Not directly in CSS anyway. Those curves require a <code>path</code>, and clip-path don&#8217;t do <code>path</code>. Fortunatly, clip-path does take a <code>url()</code>, which will accept the ID of a <code>&lt;clipPath&gt;</code> element.</p>
+<p data-height="383" style="height: 383px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="VPBQKE" data-default-tab="result" data-user="chriscoyier" data-embed-version="2" data-pen-title="Clipped Avatars" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/VPBQKE/">Clipped Avatars</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<h3><a href="#offset-path-allows-path-but-not-basic-shapes" aria-hidden="true" class="aal_anchor" id="offset-path-allows-path-but-not-basic-shapes"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>offset-path</code> allows path (but not Basic Shapes)</h3>
+<p>Say we want to move an object along the outside of that speech bubble shape we just used. <a href="https://css-tricks.com/almanac/properties/o/offset-path/">The <code>offset-path</code> property</a> is just for that. </p>
+<pre rel="HTML"><code class="language-markup">&lt;div class="move-me"&gt;&lt;/div&gt;</code></pre>
+<pre rel="CSS"><code class="language-css">.move-me {
+  offset-path: path("M100.5,39.47C100.5,58.3,83.36,74,60.58,77.64l16.85,19.9L33.94,76.25C14.47,70.92.5,56.47.5,39.47c0-21.52,22.39-39,50-39S100.5,17.95,100.5,39.47Z");
+  animation: move 3s linear infinite;
+}
+@keyframes move {
+  100% { motion-offset: 100%;}
+}</code></pre>
+<p data-height="242" style="height: 242px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="ggjvGV" data-default-tab="result" data-user="chriscoyier" data-embed-version="2" data-pen-title="offset-path on path" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/ggjvGV/">offset-path on path</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p>But what if you want to move the element in a circle? The basic shape version of a circle has a super easy syntax, like <code>circle(50% at 50% 50%)</code>; But unfortunately, the basic shapes aren&#8217;t supported. <a href="https://drafts.fxtf.org/motion-1/">The spec</a> allows for them, but they don&#8217;t work. It kinda makes sense, because&#8230; how would you define which direction to travel? </p>
+<p>You can still animate in a circle, because the all-powerful path can draw a circle, like:</p>
+<pre rel="CSS"><code class="language-css">.move-me {
+  /* a circle */
+  offset-path: path("M100,50a50,50,0,1,1-50-50A50,50,0,0,1,100,50Z");
+  animation: move 3s linear infinite;
+}
+@keyframes move {
+  100% { motion-offset: 100%;}
+}</code></pre>
+<p>And those commands dictate a direction naturally. There are also <a href="http://lea.verou.me/2012/02/moving-an-element-along-a-circle/">other ways</a> to animate in a circle.</p>
+<h3><a href="#shape-outside-allows-basic-shapes-but-not-path" aria-hidden="true" class="aal_anchor" id="shape-outside-allows-basic-shapes-but-not-path"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>shape-outside</code> allows Basic Shapes (but not <code>path()</code>)</h3>
+<p>Say you wanted to wrap some text around an egg shape, because I dunno, you were setting some text of Alice talking to Humpty Dumpty. The egg shape is a good excuse to use the <code>ellipse()</code> Basic Shape.</p>
+<pre rel="HTML"><code class="language-markup">&lt;div class="page-wrap"&gt;
+  &lt;div class="egg"&gt;&lt;/div&gt;
+  &lt;p&gt;"I don't know what you mean by 'glory,'" Alice said.&lt;/p&gt;
+  &lt;p&gt;Humpty Dumpty smiled contemptuously. "Of course you don't—till I tell you. I meant 'there's a nice knock-down argument for you!'"&lt;/p&gt;
+
+ ...</code></pre>
+<pre rel="CSS"><code class="language-css">.egg {
+  float: left;
+  shape-outside: ellipse(120px 160px at 50% 50%);
+  width: 280px;
+  height: 320px;
+}</code></pre>
+<p>We&#8217;d probably set an identical <code>clip-path</code> (to actually make the egg shape) and colorize it:</p>
+<p data-height="489" style="height: 489px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="QdBXyg" data-default-tab="result" data-user="chriscoyier" data-embed-version="2" data-pen-title="Shape Outside Egg" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/QdBXyg/">Shape Outside Egg</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p>But what if you wanted to make some text wrap around a <em>curved</em> shape, like shown here in Illustrator:</p>
+<figure><img src="https://i2.wp.com/css-tricks.com/images/wrap-curve.gif?ssl=1" alt data-recalc-dims="1" data-lazy-src="https://i2.wp.com/css-tricks.com/images/wrap-curve.gif?ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class=" jetpack-lazy-image"><noscript><img src="https://i2.wp.com/css-tricks.com/images/wrap-curve.gif?ssl=1" alt="" data-recalc-dims="1"></noscript><figcaption>Text Wrap in Adobe Illustrator</figcaption></figure>
+<p>Unfortunately, <code>shape-outside</code> doesn&#8217;t take <code>path()</code>, so you can&#8217;t. But you kinda can. It does take <code>url()</code>, in which you can use to link to an image (doesn&#8217;t even have to be SVG, but SVG makes good sense). The image can have a nice curvy path, like we&#8217;re shooting for:</p>
+<p data-height="471" style="height: 471px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="OWwKqr" data-default-tab="result" data-user="chriscoyier" data-embed-version="2" data-pen-title="Wrap Text Around Curve" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/OWwKqr/">Wrap Text Around Curve</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p>The <code>url()</code> can even <a href="https://codepen.io/enxaneta/pen/LbdjZR">be a data URL</a>. Also note that any element using <code>shape-outside</code> must be <a href="https://css-tricks.com/all-about-floats/">floated</a>, a limitation that might be resolved with <a href="https://drafts.csswg.org/css-exclusions/">CSS Exclusions</a>.</p>
+<h3><a href="#path-takes-path" aria-hidden="true" class="aal_anchor" id="path-takes-path"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>&lt;path&gt;</code> takes <code>path()</code></h3>
+<p>Here&#8217;s one that starts out making logical sense. Say you have a path:</p>
+<pre rel="HTML"><code class="language-markup">&lt;svg&gt;
+ &lt;path d=" ... " /&gt;
+&lt;/svg&gt;</code></pre>
+<p>You can change the shape of that path through CSS, say through a hover:</p>
+<pre rel="CSS"><code class="language-css">svg:hover path {
+  d: path(" ... ");
+}</code></pre>
+<p data-height="293" style="height: 293px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="ggdYLE" data-default-tab="result" data-user="chriscoyier" data-embed-version="2" data-pen-title="Change path on hover" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/ggdYLE/">Change path on hover</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p>You can even <a href="https://codepen.io/chriscoyier/pen/NRwANp">transition the shape</a>, if it happens to be path data with the same amount of points.</p>
+<p>It does get a bit confusing though. Say you have a <code>&lt;polygon&gt;</code> instead.</p>
+<pre rel="HTML"><code class="language-markup">&lt;svg&gt;
+ &lt;polygon points=" ... " /&gt;
+&lt;/svg&gt;</code></pre>
+<p>How do you update it with CSS?</p>
+<pre rel="CSS"><code class="language-css">polygon {
+  /* Nope */
+  points: " ... ";
+
+  /* Nope */
+  points: points(" ... ");
+
+  /* Nope */
+  points: polygon(" ... ");
+}</code></pre>
+<p>There isn&#8217;t a way, that I know of. Which seems weird as polygon is otherwise supported all over the place. I imagine part of problem is that the <code>polygon()</code> function is different from the <code>points</code> attribute. The <code>polygon()</code> function takes percentages and numbers with <em>units</em> in CSS, whereas the <code>points</code> attribute takes <em>unitless</em> numbers (like everything in SVG). They are different beasts, and that overlap is awkward.</p>
+<p>It&#8217;s also not that SVG shapes that overlap with Basic Shapes can&#8217;t be altered. All of <code>&lt;circle&gt;</code>&#8216;s attributes, for example, can be altered with CSS:</p>
+<pre rel="CSS"><code class="language-css">svg:hover circle {
+  cx: 40;
+  cy: 40;
+  r: 40;
+}</code></pre>
+<p data-height="300" style="height: 300px; display: flex; align-items: center; justify-content: center; border: 2px solid black; margin: 1rem 0; padding: 1rem; overflow: auto;" data-theme-id="1" data-slug-hash="ggdORM" data-default-tab="css,result" data-user="chriscoyier" data-embed-version="2" data-pen-title="Altering Circle Attributes" class="codepen">See the Pen <a href="https://codepen.io/chriscoyier/pen/ggdORM/">Altering Circle Attributes</a> by Chris Coyier (<a href="https://codepen.io/chriscoyier">@chriscoyier</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p>Long story short: there is usually a way to get done what you want to get done, but it&#8217;s confusing what is/isn&#8217;t supported where.</p>
+</div>
+</div>
+<div class="entry-unrelated sidebar">
+<div id="all-modules">
+<div id="scroll-ad-position"></div>
+<div id="sticky-sidebar-stuff">
+<div class="fem-conditional-message">
+<div class="fem-ad fem-sidebar-ad">
+<div class="fem-header">
+<div class="fem-header-inner">
+<div class="fem-learning-partner">
+Our Learning Partner
+</div>
+<a href="https://frontendmasters.com/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar"><img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1578251803/FEM-sidebar-Generic_dipjef.png" alt="Frontend Masters logo" class="fem-logo" /></a>
+<div class="fem-title">
+Frontend Masters
+</div>
+</div>
+</div>
+<div class="fem-message">
+<h4>Need front-end development training?</h4>
+<p><a href="https://frontendmasters.com/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Frontend Masters</a> is the best place to get it. They have courses on all the most important front-end technologies, from <a href="https://frontendmasters.com/learn/react/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">React</a> to <a href="https://frontendmasters.com/learn/css/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">CSS</a>, from <a href="https://frontendmasters.com/learn/vue/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Vue</a> to <a href="https://frontendmasters.com/learn/d3-js/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">D3</a>, and beyond with <a href="https://frontendmasters.com/learn/node-js/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Node.js</a> and <a href="https://frontendmasters.com/learn/fullstack/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Full Stack</a>.</p>
+</div>
+</div>
+</div> </div>
+</div>
+</div>
+</div>
+</article>
+</main>
+<div class="related-ads-comments-wrap">
+<div class="related-ads-comments">
+<div class="end-of-article-ads">
+<div class="bsap-doubles side-by-side">
+<div id="bsap_1250418" class="bsarocks bsap_3469a2a501a9e18091036aa0c89f9dcb"></div>
+</div>
+<div class="fem-conditional-message">
+<div class="fem-ad fem-footer-ad">
+<div class="fem-header">
+<div class="fem-header-inner">
+<a href="https://frontendmasters.com/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar"><img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1578251803/FEM-footer-Generic_fgvhuc.png" alt="Frontend Masters logo" class="fem-logo-large" /></a>
+</div>
+</div>
+<div class="fem-message">
+<div>
+<h4>Need front-end development training?</h4>
+<p><a href="https://frontendmasters.com/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Frontend Masters</a> is the best place to get it. They have courses on all the most important front-end technologies, from <a href="https://frontendmasters.com/learn/react/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">React</a> to <a href="https://frontendmasters.com/learn/css/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">CSS</a>, from <a href="https://frontendmasters.com/learn/vue/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Vue</a> to <a href="https://frontendmasters.com/learn/d3-js/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">D3</a>, and beyond with <a href="https://frontendmasters.com/learn/node-js/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Node.js</a> and <a href="https://frontendmasters.com/learn/fullstack/?utm_source=css-tricks&utm_medium=website&utm_campaign=css-tricks-tags-sidebar">Full Stack</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="respond-area">
+<h2 class="comments-title" id="comments">
+<span>Comments</span>
+</h2>
+<ol class="commentlist" id="commentlist">
+<li class="comment even thread-even depth-1 featured" id="li-comment-1606602">
+<div class="comment-wrap" id="comment-1606602">
+<div class="comment-author-wrap">
+<div class="comment-author">Amelia BR</div> <div class="comment-time"><a href="https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#comment-1606602"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2017-02-07T11:02:13-08:00">February 7, 2017</time></div>
+</div>
+<div class="comment-content">
+<blockquote><p>
+I&#8217;m not really sure why any of this is, and I&#8217;m sure things will change in time, but it&#8217;s good to know about.
+</p></blockquote>
+<p>&#8220;Why&#8221; is mostly a case of lots of new features being developed asynchronously, and some get ahead of others. The long term goal is definitely to have a more logical &amp; consistent set of shape functions.</p>
+<p><code>path()</code> wasn&#8217;t in the <a href="https://www.w3.org/TR/css-shapes/#supported-basic-shapes" rel="nofollow">original CSS Shapes spec</a>, it is added by the motion/offset path spec. <em>However</em>, it is defined such that it should apply anywhere a CSS property accepts a <code>&lt;shape-function&gt;</code>, and has been added to <a href="https://drafts.csswg.org/css-shapes-2/#supported-basic-shapes" rel="nofollow">CSS Shapes level 2</a>. <strong>If you want to use path functions in clip-path and shape-outside, please file/upvote browser bugs!</strong></p>
+<p>Similarly, the <a href="https://drafts.fxtf.org/motion-1/#offset-path-property" rel="nofollow">motion/offset path spec</a> supports all the shape functions, but the initial experimental implementation in Chrome is very limited.</p>
+<p>The SVG attributes-in-CSS options are a little more complicated, because of the need to keep backwards compatible with the way things work in SVG. <code>d</code> doesn&#8217;t define a complete shape: you need a separate <code>fill-rule</code>, and it only applies on a <code>&lt;path&gt;</code> element. Things are kind of half-way spec&#8217;d, but now browsers are holding back on any new implementation commitments. Again, if this is important to you (aka, if it could make your life way easier if browsers supported more SVG-in-CSS), please let the browser teams know!</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1606613">
+<div class="comment-wrap" id="comment-1606613">
+<div class="comment-author-wrap">
+<div class="comment-author">v1vendi</div> <div class="comment-time"><a href="https://css-tricks.com/basic-shapes-path-never-twain-shall-meet/#comment-1606613"><span class="screen-reader">Permalink to comment</span>#</a> <time datetime="2017-02-08T01:19:34-08:00">February 8, 2017</time></div>
+</div>
+<div class="comment-content">
+<p>SVG shape-outside still not working in mobile chrome 55 :(</p>
+</div>
+<div class="comment-actions">
+<div class="reply">
+</div>
+</div>
+</div>
+</li>
+</ol>
+<div class="comments-closed">
+This comment thread is closed. If you have important information to share, please <a href="/contact/">contact us</a>.
+</div>
+</section> <div class="related-posts">
+<div id='jp-relatedposts' class='jp-relatedposts'>
+<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div> <div class="jetpack-sponsored-posts-message">
+<img src="https://res.cloudinary.com/css-tricks/image/upload/f_auto,q_auto/v1590422774/jetpack-logo_cegyqg.svg" alt="Jetpack Logo">
+<p>The related posts above were algorithmically generated and displayed here without any load on our servers at all, <a href="https://jetpack.com/support/related-posts/?aff=8638">thanks to Jetpack</a>.</p>
+</div>
+</div> </div>
+</div>
+</div>
+<footer class="site-footer">
+<svg class="icon-logo-star" width="35px" height="35px" viewBox="0 0 362.62 388.52" data-spin-me="false">
+<path d="M156.58,239l-88.3,64.75c-10.59,7.06-18.84,11.77-29.43,11.77-21.19,0-38.85-18.84-38.85-40C0,257.83,14.13,244.88,27.08,239l103.6-44.74L27.08,148.34C13,142.46,0,129.51,0,111.85,0,90.66,18.84,73,40,73c10.6,0,17.66,3.53,28.25,11.77l88.3,64.75L144.81,44.74C141.28,20,157.76,0,181.31,0s40,18.84,36.5,43.56L206,149.52l88.3-64.75C304.93,76.53,313.17,73,323.77,73a39.2,39.2,0,0,1,38.85,38.85c0,18.84-12.95,30.61-27.08,36.5L231.93,194.26,335.54,239c14.13,5.88,27.08,18.83,27.08,37.67,0,21.19-18.84,38.85-40,38.85-9.42,0-17.66-4.71-28.26-11.77L206,239l11.77,104.78c3.53,24.72-12.95,44.74-36.5,44.74s-40-18.84-36.5-43.56Z" />
+</svg>
+<div class="footer-inside">
+<div class="footer-message-and-form">
+<p class="colophon">
+CSS-Tricks is created by <a href="https://chriscoyier.net">Chris</a> and a <a href="/about">team</a> of swell&nbsp;people.
+</p>
+<div class="footer-form-wrap">
+<form action="https://chriscoyier.us2.list-manage.com/subscribe/post?u=155f5a9ccc4e24c318130cace&amp;id=197f127a68" method="post" id="mc-embedded-subscribe-form">
+<h4>Keep up to date on web dev</h4>
+<p>with our hand-crafted weekly newsletter</p>
+<div class="footer-form">
+<label for="mce-EMAIL" class="screen-reader">Email Address</label>
+<input type="email" name="EMAIL" class="required email mailchimp-email-input" id="mce-EMAIL" placeholder="smart@cookie.com" required="">
+<input type="submit" value="Subscribe" name="Subscribe" id="mc-embedded-subscribe" class="button subscribe-button">
+</div>
+</form>
+</div> </div>
+<div class="link-grid">
+<div>
+<div>
+<h5>
+Tech
+</h5>
+<ul>
+<li><a href="https://wordpress.org/">WordPress</a> <span>(CMS)</span></li>
+<li><a href="/jetpack/">Jetpack</a> <span>(Search, Backup)</span></li>
+<li><a href="https://woocommerce.com/?aff=8638">WooCommerce</a> <span>(eCommerce)</span></li>
+<li><a href="https://localwp.com/">Local</a> <span>(Development)</span></li>
+</ul>
+</div>
+<div>
+<h5>Hosting</h5>
+<ul>
+<li><a href="https://share.getf.ly/k96n2f">Flywheel</a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h5>Family</h5>
+<ul>
+<li><a href="https://codepen.io/">CodePen</a></li>
+<li><a href="https://shoptalkshow.com/">ShopTalk Show</a></li>
+</ul>
+</div>
+<div>
+<h5>Minisites</h5>
+<ul>
+<li><a href="https://serverless.css-tricks.com/">The Power of Serverless</a></li>
+<li><a href="https://conferences.css-tricks.com/">Upcoming Conferences</a></li>
+<li><a href="https://coding-fonts.css-tricks.com/">Coding Fonts</a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h5>Contact</h5>
+<ul>
+<li><a href="/cdn-cgi/l/email-protection#1b6f7e7a765b786868366f697278706835787476">Email</a></li>
+<li><a href="https://www.notion.so/csstricks/Sponsorship-Possibilities-cb5b33a3f6f64c239220547fe7965d78">Sponsorship Info</a></li>
+<li><a href="/guest-posting/">Guest Writing</a></li>
+</ul>
+</div>
+<div>
+<h5>Buy</h5>
+<ul>
+<li><a href="/shop/">Posters & Swag</a></li>
+<li><a href="/product/mvp-supporter/">Membership</a></li>
+</ul>
+</div>
+</div>
+<div>
+<div>
+<h5>Follow</h5>
+<ul>
+<li><a href="https://twitter.com/css">Twitter</a></li>
+<li><a href="https://www.instagram.com/real_css_tricks/">Instagram</a></li>
+<li><a href="https://www.youtube.com/user/realcsstricks">YouTube</a></li>
+<li><a href="https://codepen.io/team/css-tricks">CodePen</a></li>
+<li><a href="https://github.com/CSS-Tricks">GitHub</a></li>
+<li><a href="https://podcasts.apple.com/us/podcast/css-tricks-screencasts/id273881728">iTunes</a></li>
+<li><a href="/feed/">RSS</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<a href="#top-of-site" class="top-of-site-link" data-visible="false">
+<span class="screen-reader-text">Back to Top</span>
+<svg width="32" height="32" viewBox="0 0 100 100">
+<path fill="white" d="m50 0c-13.262 0-25.98 5.2695-35.355 14.645s-14.645 22.094-14.645 35.355 5.2695 25.98 14.645 35.355 22.094 14.645 35.355 14.645 25.98-5.2695 35.355-14.645 14.645-22.094 14.645-35.355-5.2695-25.98-14.645-35.355-22.094-14.645-35.355-14.645zm20.832 62.5-20.832-22.457-20.625 22.457c-1.207 0.74219-2.7656 0.57812-3.7891-0.39844-1.0273-0.98047-1.2695-2.5273-0.58594-3.7695l22.918-25c0.60156-0.61328 1.4297-0.96094 2.2891-0.96094 0.86328 0 1.6914 0.34766 2.293 0.96094l22.918 25c0.88672 1.2891 0.6875 3.0352-0.47266 4.0898-1.1562 1.0508-2.9141 1.0859-4.1133 0.078125z" />
+</svg>
+</a>
+</footer>
+<div class="jetpack-instant-search__widget-area" style="display: none">
+<div id="media_image-3" class="widget widget_media_image"><a href="https://jetpack.com/upgrade/search/?aff=8638"><img width="600" height="444" src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?fit=600%2C444&amp;ssl=1" class="image wp-image-321694  attachment-full size-full jetpack-lazy-image" alt="" loading="lazy" style="max-width: 100%; height: auto;" data-lazy-srcset="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?w=600&amp;ssl=1 600w, https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?resize=300%2C222&amp;ssl=1 300w" data-lazy-sizes="(min-width: 735px) 864px, 96vw" data-lazy-src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2020/09/Jetpack-Search-on-CSS-Tricks-Instant-Search.png?fit=600%2C444&amp;ssl=1&amp;is-pending-load=1" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></a></div><div id="jetpack-search-filters-5" class="widget jetpack-filters widget_search"> <div id="jetpack-search-filters-5-wrapper" class="jetpack-instant-search-wrapper">
+</div></div> </div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})()
+	</script>
+<script src='https://css-tricks.com/wp-content/plugins/jetpack/_inc/build/photon/photon.min.js?ver=20191001' id='jetpack-photon-js'></script>
+<script type='text/javascript' id='jetpack-live-comment-markdown-js-extra'>
+/* <![CDATA[ */
+var markdownify = {"ajax_url":"\/wp-admin\/admin-ajax.php","nonce":"922969e633"};
+/* ]]> */
+</script>
+<script src='https://css-tricks.com/wp-content/plugins/jetpack-markdown-live-preview-comments/js/markdownify.js?ver=1' id='jetpack-live-comment-markdown-js'></script>
+<script src='https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=7.4.4' id='wp-polyfill-js'></script>
+<script id='wp-polyfill-js-after'>
+( 'fetch' in window ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-fetch.min.js?ver=3.0.0"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-node-contains.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-dom-rect.min.js?ver=3.42.0"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-url.min.js?ver=3.6.4"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-formdata.min.js?ver=3.0.12"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://css-tricks.com/wp-includes/js/dist/vendor/wp-polyfill-element-closest.min.js?ver=2.0.2"></scr' + 'ipt>' );
+</script>
+<script src='https://css-tricks.com/wp-includes/js/dist/i18n.min.js?ver=bb7c3c45d012206bfcd73d6a31f84d9e' id='wp-i18n-js'></script>
+<script id='jetpack-instant-search-js-translations'>
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "jetpack", { "locale_data": { "messages": { "": {} } } } );
+</script>
+<script id='jetpack-instant-search-js-before'>
+var JetpackInstantSearchOptions=JSON.parse(decodeURIComponent("%7B%22overlayOptions%22%3A%7B%22colorTheme%22%3A%22dark%22%2C%22enableInfScroll%22%3Atrue%2C%22enableSort%22%3Atrue%2C%22highlightColor%22%3A%22%23f4af38%22%2C%22opacity%22%3A97%2C%22overlayTrigger%22%3A%22immediate%22%2C%22resultFormat%22%3A%22minimal%22%2C%22showPoweredBy%22%3Atrue%7D%2C%22homeUrl%22%3A%22https%3A%5C%2F%5C%2Fcss-tricks.com%22%2C%22locale%22%3A%22en-US%22%2C%22postsPerPage%22%3A11%2C%22siteId%22%3A45537868%2C%22postTypes%22%3A%7B%22post%22%3A%7B%22singular_name%22%3A%22Post%22%2C%22name%22%3A%22Posts%22%7D%2C%22page%22%3A%7B%22singular_name%22%3A%22Page%22%2C%22name%22%3A%22Pages%22%7D%2C%22attachment%22%3A%7B%22singular_name%22%3A%22Media%22%2C%22name%22%3A%22Media%22%7D%2C%22product%22%3A%7B%22singular_name%22%3A%22Product%22%2C%22name%22%3A%22Products%22%7D%2C%22screenshot%22%3A%7B%22singular_name%22%3A%22Screenshot%22%2C%22name%22%3A%22Screenshots%22%7D%2C%22guides%22%3A%7B%22singular_name%22%3A%22Guide%22%2C%22name%22%3A%22Guides%22%7D%2C%22newsletters%22%3A%7B%22singular_name%22%3A%22Newsletter%22%2C%22name%22%3A%22Newsletters%22%7D%2C%22chapters%22%3A%7B%22singular_name%22%3A%22Chapter%22%2C%22name%22%3A%22Chapters%22%7D%7D%2C%22webpackPublicPath%22%3A%22https%3A%5C%2F%5C%2Fcss-tricks.com%5C%2Fwp-content%5C%2Fplugins%5C%2Fjetpack%5C%2F_inc%5C%2Fbuild%5C%2Finstant-search%5C%2F%22%2C%22apiRoot%22%3A%22https%3A%5C%2F%5C%2Fcss-tricks.com%5C%2Fwp-json%5C%2F%22%2C%22apiNonce%22%3A%22789c5f5988%22%2C%22isPrivateSite%22%3Afalse%2C%22isWpcom%22%3Afalse%2C%22defaultSort%22%3A%22relevance%22%2C%22excludedPostTypes%22%3A%5B%22attachment%22%2C%22screenshot%22%5D%2C%22hasOverlayWidgets%22%3Atrue%2C%22widgets%22%3A%5B%7B%22filters%22%3A%5B%7B%22name%22%3A%22Post%20Types%22%2C%22type%22%3A%22post_type%22%2C%22count%22%3A5%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%2C%22filter_id%22%3A%22post_type_1%22%7D%2C%7B%22name%22%3A%22Year%22%2C%22type%22%3A%22date_histogram%22%2C%22count%22%3A1%2C%22field%22%3A%22post_date%22%2C%22interval%22%3A%22year%22%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%2C%22filter_id%22%3A%22date_histogram_2%22%7D%2C%7B%22name%22%3A%22Tags%22%2C%22type%22%3A%22taxonomy%22%2C%22taxonomy%22%3A%22post_tag%22%2C%22count%22%3A5%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%2C%22filter_id%22%3A%22taxonomy_3%22%7D%5D%2C%22widget_id%22%3A%22jetpack-search-filters-5%22%7D%5D%2C%22widgetsOutsideOverlay%22%3A%5B%7B%22filters%22%3A%5B%7B%22name%22%3A%22Tags%22%2C%22type%22%3A%22taxonomy%22%2C%22taxonomy%22%3A%22post_tag%22%2C%22count%22%3A5%2C%22widget_id%22%3A%22jetpack-search-filters-3%22%2C%22filter_id%22%3A%22taxonomy_0%22%7D%5D%2C%22widget_id%22%3A%22jetpack-search-filters-3%22%7D%5D%2C%22adminQueryFilter%22%3A%7B%22bool%22%3A%7B%22should%22%3A%5B%7B%22term%22%3A%7B%22post_type%22%3A%22post%22%7D%7D%2C%7B%22term%22%3A%7B%22post_type%22%3A%22page%22%7D%7D%2C%7B%22term%22%3A%7B%22post_type%22%3A%22newsletters%22%7D%7D%2C%7B%22term%22%3A%7B%22post_type%22%3A%22chapters%22%7D%7D%5D%7D%7D%7D"));
+</script>
+<script src='https://css-tricks.com/wp-content/plugins/jetpack/_inc/build/instant-search/jp-search.bundle.js?ver=9.2.1' id='jetpack-instant-search-js'></script>
+<script src='//stats.wp.com/w.js?ver=202102' id='jp-tracks-js'></script>
+<script src='https://css-tricks.com/wp-content/plugins/jetpack/vendor/automattic/jetpack-lazy-images/src/js/lazy-images.min.js?ver=1.0.0' id='jetpack-lazy-images-js'></script>
+<script>
+    window.activeMember = false;
+  </script>
+<script src="https://css-tricks.com/wp-content/themes/CSS-Tricks-18/js/min/global-concat.min.js?cache_bust=1609343441128"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68528-29', 'auto');
+
+  if (typeof articleYear !== "undefined") {
+    ga('set', 'dimension1', articleYear);
+  }
+  if (typeof articleAuthor !== "undefined") {
+    ga('set', 'dimension2', articleAuthor);
+  }
+  if (typeof articleType !== "undefined") {
+    ga('set', 'dimension3', articleType);
+  }
+
+  ga('send', 'pageview');
+</script>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+<svg width="0" height="0" class="screen-reader">
+<defs>
+<linearGradient id="orange-to-pink" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0%" stop-color="#ff7a18" />
+<stop offset="40%" stop-color="#af002d" />
+<stop offset="100%" stop-color="#319197" />
+</linearGradient>
+<filter id="duotone_orange_pink">
+<feColorMatrix type="matrix" result="grayscale" values="1 0 0 0 0
+                  1 0 0 0 0
+                  1 0 0 0 0
+                  0 0 0 1 0">
+</feColorMatrix>
+<feComponentTransfer color-interpolation-filters="sRGB" result="duotone">
+<feFuncR type="table" tableValues="0.7411764706 0.9882352941"></feFuncR>
+<feFuncG type="table" tableValues="0.0431372549 0.7333333333"></feFuncG>
+<feFuncB type="table" tableValues="0.568627451 0.05098039216"></feFuncB>
+<feFuncA type="table" tableValues="0 1"></feFuncA>
+</feComponentTransfer>
+</filter>
+</defs>
+</svg>
+</body>
+</html>
