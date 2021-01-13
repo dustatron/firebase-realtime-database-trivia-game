@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import firebase from "firebase";
 
 import { useList } from "react-firebase-hooks/database";
@@ -14,7 +14,6 @@ const realTimeChat = () => {
   console.log("messages", messages);
 
   const [formValue, setFormValue] = useState("");
-  const dummy = useRef();
 
   const { uid, photoURL } = auth.currentUser;
 

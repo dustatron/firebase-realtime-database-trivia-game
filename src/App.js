@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
@@ -5,6 +7,7 @@ import "./App.css";
 
 import SignIn from "./components/SingIn";
 import ChatRoom from "./components/Chatroom";
+import Trivia from "./components/Trivia";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -27,8 +30,31 @@ const auth = firebase.auth();
 
 function App() {
   const [user] = useAuthState(auth);
+  const [view, setView] = useState(2);
 
-  return <div className="App">{user ? <ChatRoom /> : <SignIn />}</div>;
+  return (
+    <div className="App">
+      <div>
+        <SignIn />
+        <button
+          onClick={() => {
+            setView(1);
+          }}
+        >
+          Chat
+        </button>
+        <button
+          onClick={() => {
+            setView(2);
+          }}
+        >
+          trivia
+        </button>
+      </div>
+      {view === 1 && <ChatRoom />}
+      {view === 2 && <Trivia />}
+    </div>
+  );
 }
 
 export default App;
