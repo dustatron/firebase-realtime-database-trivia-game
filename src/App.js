@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { Button, Container } from "react-bootstrap";
 
 import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
-import "./App.css";
 
 import SignIn from "./components/SingIn";
 import ChatRoom from "./components/Chatroom";
@@ -33,27 +33,27 @@ function App() {
   const [view, setView] = useState(2);
 
   return (
-    <div className="App">
+    <Container>
       <div>
         <SignIn />
-        <button
+        <Button
           onClick={() => {
             setView(1);
           }}
         >
           Chat
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             setView(2);
           }}
         >
           trivia
-        </button>
+        </Button>
       </div>
       {view === 1 && <ChatRoom />}
       {view === 2 && <Trivia />}
-    </div>
+    </Container>
   );
 }
 

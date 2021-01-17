@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import firebase from "firebase";
+import { Button } from "react-bootstrap";
 
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -51,9 +52,9 @@ const Chatroom = () => {
           placeholder="say something nice"
         />
 
-        <button type="submit" disabled={!formValue}>
+        <Button type="submit" disabled={!formValue}>
           🕊️
-        </button>
+        </Button>
       </form>
     </>
   );

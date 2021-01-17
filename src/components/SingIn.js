@@ -1,5 +1,6 @@
 import React from "react";
 import firebase from "firebase";
+import { Button } from "react-bootstrap";
 
 const SingIn = () => {
   const auth = firebase.auth();
@@ -11,13 +12,13 @@ const SingIn = () => {
 
   if (auth.currentUser) {
     return (
-      <button className="sign-out" onClick={() => auth.signOut()}>
+      <Button className="sign-out" onClick={() => auth.signOut()}>
         Sign Out
-      </button>
+      </Button>
     );
   }
 
-  return <button onClick={signInWithGoogle}>Sign In</button>;
+  return <Button onClick={signInWithGoogle}>Sign In</Button>;
 };
 
 export default SingIn;

@@ -1,33 +1,24 @@
-import React from "react";
-import { useQuery } from "react-query";
-import Question from "./Question";
-import SaveTrivia from "./SaveTrivia";
+import React, { useState } from "react";
+import Menu from "./Menu";
+import Generator from "./Generator";
+import { Col, Row } from "react-bootstrap";
+import ShowQuiz from "../ShowQuiz";
 
 const Trivia = () => {
-  const { isLoading, isError, data, error } = useQuery("quiz", () => {
-    return fetch("https://opentdb.com/api.php?amount=10").then((res) =>
-      res.json()
-    );
-  });
-
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
-
-  if (isError) {
-    return <span>Error: {error.message}</span>;
-  }
-
-  if (data)
-    return (
-      <div>
-        <SaveTrivia quiz={data.results} />
-        {data.results.map((que) => {
-          return <Question q={que} />;
-        })}
-      </div>
-    );
-  return <div> no data </div>;
+  const [view, updateView] = useState(1);
+  return (
+    <>
+      <Row>
+        <Col sm={2}>
+          <Menu updater={updateView} />
+        </Col>
+        <Col sm={10}>
+          {view === 1 && <Generator />}
+          {view === 2 && <ShowQuiz />}
+        </Col>
+      </Row>
+    </>
+  );
 };
 
 export default Trivia;
