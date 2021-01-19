@@ -29,7 +29,7 @@ if (!firebase.apps.length) {
 const auth = firebase.auth();
 
 function App() {
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
   const [view, setView] = useState(2);
 
   return (

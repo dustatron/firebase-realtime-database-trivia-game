@@ -5,15 +5,18 @@ import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
 import reportWebVitals from "./reportWebVitals";
 import SelectedQuizContext from "./context/SelectedQuizContext";
+import AnswersContext from "./context/AnswersContext";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <SelectedQuizContext>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <AnswersContext>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </AnswersContext>
     </SelectedQuizContext>
   </QueryClientProvider>,
   document.getElementById("root")

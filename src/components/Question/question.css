@@ -1,0 +1,15 @@
+.question-card {
+  margin-bottom: 10px;
+}
+
+.question-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.question-options-btn {
+  width: 35%;
+  min-height: 4em;
+  margin: 5px;
+}

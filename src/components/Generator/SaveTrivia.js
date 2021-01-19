@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import firebase from "firebase";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 
-const SaveTrivia = ({ quiz }) => {
+const SaveTrivia = ({ quiz, fetch }) => {
   const [data, setData] = useState("");
 
   const handleSaveQuiz = () => {
@@ -11,6 +11,13 @@ const SaveTrivia = ({ quiz }) => {
   };
   return (
     <div>
+      <Button
+        onClick={() => {
+          fetch();
+        }}
+      >
+        New Quiz
+      </Button>
       <InputGroup className="mb-3">
         <FormControl
           placeholder="Recipient's username"

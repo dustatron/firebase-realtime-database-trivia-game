@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import firebase from "firebase";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Button } from "react-bootstrap";
 import { useList } from "react-firebase-hooks/database";
 import { useSelectedQuizUpdate } from "../../context/SelectedQuizContext";
 
@@ -30,6 +30,7 @@ const Menu = ({ updater }) => {
             const quiz = q.val();
             return (
               <ListGroup.Item
+                key={q.key}
                 onClick={() => {
                   const selectData = { ...quiz, key: q.key };
                   updater(2);
@@ -41,6 +42,13 @@ const Menu = ({ updater }) => {
             );
           })}
       </ListGroup>
+      <Button
+        onClick={() => {
+          updater(3);
+        }}
+      >
+        Get Answers
+      </Button>
     </div>
   );
 };
