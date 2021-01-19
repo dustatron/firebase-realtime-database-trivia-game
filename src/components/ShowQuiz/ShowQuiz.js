@@ -13,7 +13,7 @@ const ShowQuiz = () => {
 
   return (
     <div>
-      <h2>Show Quiz</h2>
+      <h2>{show.title}</h2>
       {show.quiz &&
         show.quiz.map((q, index) => {
           return <Question number={index} q={q} key={index} />;

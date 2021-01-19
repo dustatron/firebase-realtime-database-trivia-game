@@ -1,0 +1,10 @@
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.menu-delete {
+  font-size: 13px;
+  background: none;
+  border: none;
+}

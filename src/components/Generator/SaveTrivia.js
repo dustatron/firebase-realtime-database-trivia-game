@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import firebase from "firebase";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Alert } from "react-bootstrap";
 
 const SaveTrivia = ({ quiz, fetch }) => {
   const [data, setData] = useState("");
+  const [error, setError] = useState(null);
+  const errorConstant = "Please name your quiz.";
 
   const handleSaveQuiz = () => {
-    const thisQuiz = { quiz: quiz, title: data };
-    firebase.database().ref("quizs").push(thisQuiz);
+    if (data.length > 0) {
+      const thisQuiz = { quiz: quiz, title: data };
+      return firebase.database().ref("quizs").push(thisQuiz);
+    }
+
+    setError(errorConstant);
+    return setTimeout(function () {
+      setError(null);
+    }, 2000);
   };
   return (
     <div>
@@ -18,6 +27,7 @@ const SaveTrivia = ({ quiz, fetch }) => {
       >
         New Quiz
       </Button>
+      {error && <Alert variant="danger">{error}</Alert>}
       <InputGroup className="mb-3">
         <FormControl
           placeholder="Recipient's username"
