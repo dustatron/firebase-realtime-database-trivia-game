@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import React from "react";
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
 
-import SignIn from "./components/SingIn";
+import Nav from "./components/Nav";
+import Home from "./components/Home";
 import ChatRoom from "./components/Chatroom";
 import Trivia from "./components/Trivia";
-
-import { useAuthState } from "react-firebase-hooks/auth";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -29,31 +29,24 @@ if (!firebase.apps.length) {
 const auth = firebase.auth();
 
 function App() {
-  // const [user] = useAuthState(auth);
-  const [view, setView] = useState(2);
-
   return (
-    <Container>
-      <div>
-        <SignIn />
-        <Button
-          onClick={() => {
-            setView(1);
-          }}
-        >
-          Chat
-        </Button>
-        <Button
-          onClick={() => {
-            setView(2);
-          }}
-        >
-          trivia
-        </Button>
-      </div>
-      {view === 1 && <ChatRoom />}
-      {view === 2 && <Trivia auth={auth.currentUser ? true : false} />}
-    </Container>
+    <Router>
+      <Container>
+        <Nav />
+
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/chat">
+            <ChatRoom />
+          </Route>
+          <Route path="/trivia">
+            <Trivia auth={auth.currentUser ? true : false} />
+          </Route>
+        </Switch>
+      </Container>
+    </Router>
   );
 }
 

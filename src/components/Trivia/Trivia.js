@@ -12,7 +12,6 @@ const Trivia = () => {
     <>
       <Row>
         <Col sm={2}>
-          {" "}
           <Menu updater={updateView} />
         </Col>
         <Col sm={10}>

@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import reportWebVitals from "./reportWebVitals";
 import SelectedQuizContext from "./context/SelectedQuizContext";
 import AnswersContext from "./context/AnswersContext";
+import UserContext from "./context/UserContext";
 
 const queryClient = new QueryClient();
 
@@ -13,9 +14,11 @@ ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <SelectedQuizContext>
       <AnswersContext>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        <UserContext>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </UserContext>
       </AnswersContext>
     </SelectedQuizContext>
   </QueryClientProvider>,
