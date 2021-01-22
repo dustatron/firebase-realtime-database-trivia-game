@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import { ListGroup, Button } from "react-bootstrap";
 import { useList } from "react-firebase-hooks/database";
@@ -11,13 +11,21 @@ import ConfirmModel from "./ConfirmModal";
 import "./menu.css";
 
 const Menu = ({ updater }) => {
-  const dbRef = firebase.database().ref("quizs");
+  const auth = firebase.auth();
+  const [UID, setUID] = useState(0);
+  const dbRef = firebase.database().ref("quizzes/" + UID);
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUID(auth.currentUser.uid);
+    }
+  }, [auth.currentUser]);
+
   const updateSelected = useSelectedQuizUpdate();
   const selectedQuiz = useSelectedQuiz();
   const [show, setShow] = useState(false);
   const [current, setCurrent] = useState(false);
 
-  const [quizs, loading, error] = useList(dbRef);
+  const [quizzes, loading, error] = useList(dbRef);
 
   const handleDelete = () => {
     setShow(false);
@@ -51,8 +59,8 @@ const Menu = ({ updater }) => {
         {error && `Error: ${error}`}
         {loading && "Loading..."}
         {!loading &&
-          quizs &&
-          quizs.map((q) => {
+          quizzes &&
+          quizzes.map((q) => {
             const quiz = q.val();
             return (
               <ListGroup.Item

@@ -11,7 +11,6 @@ const realTimeChat = () => {
   const dbRef = firebase.database().ref("list");
 
   const [messages, loading, error] = useList(dbRef);
-  console.log("messages", messages);
 
   const [formValue, setFormValue] = useState("");
 

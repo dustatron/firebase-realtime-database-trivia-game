@@ -52,7 +52,7 @@ function App() {
         </Button>
       </div>
       {view === 1 && <ChatRoom />}
-      {view === 2 && <Trivia />}
+      {view === 2 && <Trivia auth={auth.currentUser ? true : false} />}
     </Container>
   );
 }

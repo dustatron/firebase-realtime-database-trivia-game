@@ -7,10 +7,12 @@ import ShowAnswers from "../ShowAnswers";
 
 const Trivia = () => {
   const [view, updateView] = useState(1);
+
   return (
     <>
       <Row>
         <Col sm={2}>
+          {" "}
           <Menu updater={updateView} />
         </Col>
         <Col sm={10}>

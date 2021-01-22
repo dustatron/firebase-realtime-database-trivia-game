@@ -3,14 +3,23 @@ import firebase from "firebase";
 import { InputGroup, FormControl, Button, Alert } from "react-bootstrap";
 
 const SaveTrivia = ({ quiz, fetch }) => {
+  const auth = firebase.auth();
   const [data, setData] = useState("");
   const [error, setError] = useState(null);
   const errorConstant = "Please name your quiz.";
 
   const handleSaveQuiz = () => {
+    const { uid } = auth.currentUser;
+
     if (data.length > 0) {
-      const thisQuiz = { quiz: quiz, title: data };
-      return firebase.database().ref("quizs").push(thisQuiz);
+      const thisQuiz = {
+        quiz: quiz,
+        title: data,
+      };
+      return firebase
+        .database()
+        .ref("quizzes/" + uid)
+        .push(thisQuiz);
     }
 
     setError(errorConstant);
