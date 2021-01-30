@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import SelectedQuizContext from "./context/SelectedQuizContext";
 import AnswersContext from "./context/AnswersContext";
 import UserContext from "./context/UserContext";
+import QuizListContext from "./context/QuizListContext";
 
 const queryClient = new QueryClient();
 
@@ -15,9 +16,11 @@ ReactDOM.render(
     <SelectedQuizContext>
       <AnswersContext>
         <UserContext>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
+          <QuizListContext>
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </QuizListContext>
         </UserContext>
       </AnswersContext>
     </SelectedQuizContext>

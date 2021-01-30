@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { Button } from "react-bootstrap";
@@ -17,16 +17,16 @@ function onAuthStateChange(callback) {
 
 const Nav = () => {
   const auth = firebase.auth();
-  // const [user, setUser] = useState({ loggedIn: false });
   const user = useUserLogin();
   const setUser = useUpdateUserLogin();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChange(setUser);
+
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [setUser]);
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();

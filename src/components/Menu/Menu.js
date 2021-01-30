@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-import { ListGroup, Button } from "react-bootstrap";
+import { ListGroup, Button, Spinner } from "react-bootstrap";
 import { useList } from "react-firebase-hooks/database";
+import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
+
 import {
   useSelectedQuizUpdate,
   useSelectedQuiz,
@@ -14,14 +16,23 @@ import "./menu.css";
 
 const Menu = ({ updater }) => {
   const user = useUserLogin();
-  const dbRef = firebase.database().ref("quizzes/" + user.uid);
-
   const updateSelected = useSelectedQuizUpdate();
   const selectedQuiz = useSelectedQuiz();
+
+  const dbRef = firebase.database().ref("quizzes/" + user.uid);
+
+  const updateQuizList = useUpdateQuizList();
+  const quizList = useQuizList();
+
   const [show, setShow] = useState(false);
+  const [quizzes, loading, error] = useList(dbRef);
   const [current, setCurrent] = useState(false);
 
-  const [quizzes, loading, error] = useList(dbRef);
+  useEffect(() => {
+    if (quizzes.length !== quizList.length) {
+      return updateQuizList(quizzes);
+    }
+  }, [quizzes]); // set when opening modal
 
   const handleDelete = () => {
     setShow(false);
@@ -52,11 +63,10 @@ const Menu = ({ updater }) => {
         >
           Generator
         </ListGroup.Item>
+
         {error && `Error: ${error}`}
-        {loading && "Loading..."}
-        {!loading &&
-          quizzes &&
-          quizzes.map((q) => {
+        {quizList &&
+          quizList.map((q) => {
             const quiz = q.val();
             return (
               <ListGroup.Item
@@ -81,6 +91,7 @@ const Menu = ({ updater }) => {
               </ListGroup.Item>
             );
           })}
+        {loading && <Spinner animation="border" />}
       </ListGroup>
       <Button
         onClick={() => {
