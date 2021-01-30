@@ -8,7 +8,7 @@ import { useUpdateUserLogin, useUserLogin } from "../../context/UserContext";
 function onAuthStateChange(callback) {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      callback({ loggedIn: true });
+      callback({ loggedIn: true, uid: firebase.auth().currentUser.uid });
     } else {
       callback({ loggedIn: false });
     }

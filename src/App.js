@@ -6,6 +6,8 @@ import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/auth";
 
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./components/Login";
 import Nav from "./components/Nav";
 import Home from "./components/Home";
 import ChatRoom from "./components/Chatroom";
@@ -38,12 +40,12 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/chat">
-            <ChatRoom />
+          <Route exact path="/login">
+            <Login />
           </Route>
-          <Route path="/trivia">
-            <Trivia auth={auth.currentUser ? true : false} />
-          </Route>
+
+          <PrivateRoute component={ChatRoom} path="/chat" />
+          <PrivateRoute component={Trivia} path="/trivia" />
         </Switch>
       </Container>
     </Router>

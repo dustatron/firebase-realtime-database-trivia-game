@@ -7,18 +7,14 @@ import {
   useSelectedQuizUpdate,
   useSelectedQuiz,
 } from "../../context/SelectedQuizContext";
+import { useUserLogin } from "../../context/UserContext";
 import ConfirmModel from "./ConfirmModal";
+
 import "./menu.css";
 
 const Menu = ({ updater }) => {
-  const auth = firebase.auth();
-  const [UID, setUID] = useState(0);
-  const dbRef = firebase.database().ref("quizzes/" + UID);
-  useEffect(() => {
-    if (auth.currentUser) {
-      setUID(auth.currentUser.uid);
-    }
-  }, [auth.currentUser]);
+  const user = useUserLogin();
+  const dbRef = firebase.database().ref("quizzes/" + user.uid);
 
   const updateSelected = useSelectedQuizUpdate();
   const selectedQuiz = useSelectedQuiz();
