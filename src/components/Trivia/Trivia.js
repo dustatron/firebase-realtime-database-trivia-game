@@ -4,6 +4,7 @@ import Generator from "../Generator";
 import { Col, Row } from "react-bootstrap";
 import ShowQuiz from "../ShowQuiz";
 import ShowAnswers from "../ShowAnswers";
+import MakeQuiz from "../MakeQuiz";
 
 const Trivia = () => {
   const [view, updateView] = useState(1);
@@ -15,6 +16,7 @@ const Trivia = () => {
           <Menu updater={updateView} />
         </Col>
         <Col sm={10}>
+          {view === 0 && <MakeQuiz />}
           {view === 1 && <Generator />}
           {view === 2 && <ShowQuiz />}
           {view === 3 && <ShowAnswers />}

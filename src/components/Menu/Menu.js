@@ -63,10 +63,19 @@ const Menu = ({ updater }) => {
         >
           Generator
         </ListGroup.Item>
+        <ListGroup.Item
+          variant={selectedQuiz.title === "Make" ? "success" : ""}
+          onClick={() => {
+            updater(0);
+            updateSelected({ title: "Make" });
+          }}
+        >
+          Make A Quiz
+        </ListGroup.Item>
 
         {error && `Error: ${error}`}
-        {quizList &&
-          quizList.map((q) => {
+        {quizzes &&
+          quizzes.map((q) => {
             const quiz = q.val();
             return (
               <ListGroup.Item

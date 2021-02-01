@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import _ from "lodash";
+import { shuffle } from "lodash";
 import { Card, Button } from "react-bootstrap";
 
 import { useUpdateCurrentAnswer } from "../../context/AnswersContext";
@@ -17,7 +17,7 @@ const Question = ({
 
   useEffect(() => {
     const options = [correct_answer, ...incorrect_answers];
-    setDisplay(_.shuffle(options));
+    setDisplay(shuffle(options));
   }, [correct_answer, incorrect_answers]);
 
   const handleAnswerClick = (q) => {
