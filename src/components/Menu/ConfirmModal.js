@@ -4,7 +4,6 @@ import { Button, Modal } from "react-bootstrap";
 function ConfirmModel({ del, show, setShow, quiz }) {
   const handleClose = () => setShow(false);
   const handleDelete = () => del();
-  // const handleShow = () => setShow(true);
 
   return (
     <>
