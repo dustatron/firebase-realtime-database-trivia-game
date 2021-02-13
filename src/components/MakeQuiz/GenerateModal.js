@@ -1,7 +1,13 @@
 import React from "react";
 import { Form, Row, Col, Button, Modal } from "react-bootstrap";
 
-const GenerateModal = ({ show, setShow, refetch, formData, setFormData }) => {
+const GenerateModal = ({
+  show,
+  setShow,
+  getQuestions,
+  formData,
+  setFormData,
+}) => {
   const handleClose = () => setShow(false);
 
   const handleChange = (e) => {
@@ -10,7 +16,7 @@ const GenerateModal = ({ show, setShow, refetch, formData, setFormData }) => {
   };
 
   const handleGenerate = () => {
-    refetch();
+    getQuestions();
     setShow(false);
   };
 
@@ -25,7 +31,7 @@ const GenerateModal = ({ show, setShow, refetch, formData, setFormData }) => {
             <Form
               onSubmit={(e) => {
                 e.preventDefault();
-                refetch();
+                // refetch();
               }}
             >
               <Form.Group controlId="amount">

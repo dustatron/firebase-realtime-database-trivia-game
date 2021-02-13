@@ -12,6 +12,7 @@ import { useQuery } from "react-query";
 import GenerateModal from "./GenerateModal";
 import Question from "../Question";
 import MakeRound from "../MakeRound";
+import { currentAnswerContext } from "../../context/AnswersContext";
 // import SaveButton from "./SaveButton";
 
 const initialFormData = {
@@ -25,14 +26,17 @@ const initialFormData = {
 const MakeQuiz = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showModal, setShowModal] = useState(false);
-  const [round, setRound] = useState([]);
+  const [currentRound, setCurrentRound] = useState(null);
+  const [selectedRound, setSelectedRound] = useState(null);
+  const [rounds, setRound] = useState([]);
 
   const fetchQuiz = async () => {
     const { amount, category, difficulty, type } = formData;
     const data = await fetch(
       `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
     );
-    const jsonData = data.json();
+    const jsonData = await data.json();
+    console.log(jsonData.results);
     return jsonData;
   };
 
@@ -47,12 +51,28 @@ const MakeQuiz = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    console.log("submit");
   };
 
   const handleAddRound = () => {
-    const newRound = [...round, round.length + 1];
-    setRound(newRound);
+    if (currentRound === null) {
+      setCurrentRound(0);
+      return setRound({ 0: {} });
+    }
+    const newRound = currentRound + 1;
+    setCurrentRound(newRound);
+    setRound({ ...rounds, [newRound]: {} });
+  };
+
+  const onShowModal = (r) => {
+    setShowModal(true);
+    setSelectedRound(r);
+  };
+
+  const generateRound = async () => {
+    // refetch();
+    const roundData = await fetchQuiz();
+    const newRoundData = { ...rounds, [selectedRound]: roundData };
+    setRound(newRoundData);
   };
 
   return (
@@ -60,9 +80,10 @@ const MakeQuiz = () => {
       <GenerateModal
         show={showModal}
         setShow={setShowModal}
-        refetch={refetch}
+        getQuestions={generateRound}
         formData={formData}
         setFormData={setFormData}
+        currentRound={currentRound}
       />
       {/* 
       <Button
@@ -79,7 +100,7 @@ const MakeQuiz = () => {
             <Card>
               <Card.Header>Quiz Name</Card.Header>
               <Card.Body>
-                <InputGroup className="mb-3">
+                {/* <InputGroup className="mb-3">
                   <FormControl
                     placeholder="Quiz Name"
                     aria-label="Name your Quiz"
@@ -90,7 +111,7 @@ const MakeQuiz = () => {
                       Save
                     </Button>
                   </InputGroup.Append>
-                </InputGroup>
+                </InputGroup> */}
               </Card.Body>
             </Card>
             {/* {data && <SaveButton quiz={data.results} fetch={refetch} />} */}
@@ -103,30 +124,32 @@ const MakeQuiz = () => {
                 <Button variant="info" onClick={handleAddRound}>
                   Add Round
                 </Button>
-                {round.map((r, index) => (
-                  <Button key={`round-btn-${index}`}>{r}</Button>
+                {Object.keys(rounds).map((r, index) => (
+                  <Button key={`round-btn-${index}`}>{index + 1}</Button>
                 ))}
               </Card.Body>
             </Card>
           </Col>
         </Row>
         <Row>
-          {isLoading && <span>Loading...</span>}
-          {isError && <span>Error: {error.message}</span>}
-          {/* {data &&
+          <Col md={{ span: 10, offset: 1 }}>
+            {/* {isLoading && <span>Loading...</span>}
+            {isError && <span>Error: {error.message}</span>} */}
+            {/* {data &&
             data.results.map((que, index) => {
               return <Question number={index} q={que} key={index} />;
             })} */}
-          {round.map((r, index) => (
-            <>
+            {Object.keys(rounds).map((r) => (
               <MakeRound
-                key={`round-${index}`}
+                key={`round-${r + 1}`}
                 RoundNumber={r}
-                data={data ? data.results : null}
-                showModal={setShowModal}
+                showModal={() => {
+                  onShowModal(r);
+                }}
+                roundQuestions={rounds[r].results}
               />
-            </>
-          ))}
+            ))}
+          </Col>
         </Row>
       </Container>
     </>
