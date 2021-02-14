@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Menu from "../Menu";
-import Generator from "../Generator";
 import { Col, Row } from "react-bootstrap";
-import ShowQuiz from "../ShowQuiz";
-import ShowAnswers from "../ShowAnswers";
-import MakeQuiz from "../MakeQuiz";
+import React, { useState } from "react";
+import Menu from "../../components/Menu";
+import Generator from "../../components/Generator";
+import ShowQuiz from "../../components/ShowQuiz";
+import ShowAnswers from "../../components/ShowAnswers";
+import MakeQuiz from "../../components/MakeQuiz";
 
 const Trivia = () => {
   const [view, updateView] = useState(1);

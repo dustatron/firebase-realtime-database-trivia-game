@@ -24,15 +24,15 @@ const Menu = ({ updater }) => {
   const updateQuizList = useUpdateQuizList();
   const quizList = useQuizList();
 
-  const [show, setShow] = useState(false);
   const [quizzes, loading, error] = useList(dbRef);
+  const [show, setShow] = useState(false);
   const [current, setCurrent] = useState(false);
 
   useEffect(() => {
     if (quizzes.length !== quizList.length) {
       return updateQuizList(quizzes);
     }
-  }, [quizzes]); // set when opening modal
+  }, [quizzes, quizList, updateQuizList]); // set when opening modal
 
   const handleDelete = () => {
     setShow(false);
