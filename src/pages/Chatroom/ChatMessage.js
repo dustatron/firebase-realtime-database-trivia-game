@@ -1,6 +1,6 @@
 import React from "react";
 import firebase from "firebase";
-import stockImage from "../media/adorableAvitar.png";
+import stockImage from "../../media/adorableAvitar.png";
 
 const ChatMessage = ({ message: { text, uid, photoURL } }) => {
   const auth = firebase.auth();

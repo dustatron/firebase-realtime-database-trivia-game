@@ -1,48 +1,22 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from "react";
-import firebase from "firebase";
+import React from "react";
 import { ListGroup, Button, Spinner } from "react-bootstrap";
-import { useList } from "react-firebase-hooks/database";
-import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
-
-import {
-  useSelectedQuizUpdate,
-  useSelectedQuiz,
-} from "../../context/SelectedQuizContext";
-import { useUserLogin } from "../../context/UserContext";
+import { useRouteMatch, Link } from "react-router-dom";
 import ConfirmModel from "./ConfirmModal";
 
 import "./menu.css";
 
-const Menu = ({ updater }) => {
-  const user = useUserLogin();
-  const updateSelected = useSelectedQuizUpdate();
-  const selectedQuiz = useSelectedQuiz();
-
-  const dbRef = firebase.database().ref("quizzes/" + user.uid);
-
-  const updateQuizList = useUpdateQuizList();
-  const quizList = useQuizList();
-
-  const [quizzes, loading, error] = useList(dbRef);
-  const [show, setShow] = useState(false);
-  const [current, setCurrent] = useState(false);
-
-  useEffect(() => {
-    if (quizzes.length !== quizList.length) {
-      return updateQuizList(quizzes);
-    }
-  }, [quizzes, quizList, updateQuizList]); // set when opening modal
-
-  const handleDelete = () => {
-    setShow(false);
-    return dbRef.child(current.key).remove();
-  };
-
-  const showModal = (q) => {
-    setCurrent(q);
-    setShow(true);
-  };
+const Menu = ({
+  handleDelete,
+  show,
+  setShow,
+  current,
+  updateSelected,
+  selectedQuiz,
+  quizzes,
+  loading,
+  showModal,
+}) => {
+  let { url } = useRouteMatch();
 
   return (
     <div>
@@ -54,62 +28,65 @@ const Menu = ({ updater }) => {
       />
       <h2>Menu</h2>
       <ListGroup>
-        <ListGroup.Item
-          variant={selectedQuiz.title === "Generator" ? "success" : ""}
-          onClick={() => {
-            updater(1);
-            updateSelected({ title: "Generator" });
-          }}
-        >
-          Generator
-        </ListGroup.Item>
-        <ListGroup.Item
-          variant={selectedQuiz.title === "Make" ? "success" : ""}
-          onClick={() => {
-            updater(0);
-            updateSelected({ title: "Make" });
-          }}
-        >
-          Make A Quiz
-        </ListGroup.Item>
+        <Link to={`${url}/generator`}>
+          <ListGroup.Item
+            variant={selectedQuiz.title === "Generator" ? "success" : ""}
+            onClick={() => {
+              updateSelected({ title: "Generator" });
+            }}
+          >
+            Generator
+          </ListGroup.Item>
+        </Link>
+        <Link to={`${url}/make-quiz`}>
+          <ListGroup.Item
+            variant={selectedQuiz.title === "Make" ? "success" : ""}
+            onClick={() => {
+              updateSelected({ title: "Make" });
+            }}
+          >
+            Make A Quiz
+          </ListGroup.Item>
+        </Link>
 
-        {error && `Error: ${error}`}
+        {/* {error && `Error: ${error}`} */}
         {quizzes &&
           quizzes.map((q) => {
             const quiz = q.val();
             return (
-              <ListGroup.Item
-                variant={selectedQuiz.title === quiz.title ? "success" : ""}
-                className="menu-item"
-                key={q.key}
-                onClick={() => {
-                  const selectData = { ...quiz, key: q.key };
-                  updater(2);
-                  updateSelected(selectData);
-                }}
-              >
-                {quiz.title}
-                <button
-                  className="menu-delete"
+              <Link to={`${url}/this-quiz/${q.key}`} key={q.key}>
+                <ListGroup.Item
+                  className="menu-item"
+                  variant={selectedQuiz.key === q.key ? "success" : ""}
                   onClick={() => {
-                    showModal(q);
+                    const selectData = { ...quiz, key: q.key };
+                    updateSelected(selectData);
                   }}
                 >
-                  🗑
-                </button>
-              </ListGroup.Item>
+                  {quiz.title}
+                  <button
+                    className="menu-delete"
+                    onClick={() => {
+                      showModal(q);
+                    }}
+                  >
+                    🗑
+                  </button>
+                </ListGroup.Item>
+              </Link>
             );
           })}
         {loading && <Spinner animation="border" />}
       </ListGroup>
-      <Button
-        onClick={() => {
-          updater(3);
-          updateSelected({});
-        }}
-      >
-        Get Answers
-      </Button>
+      <Link to={`${url}/show-answers`}>
+        <Button
+          onClick={() => {
+            updateSelected({});
+          }}
+        >
+          Get Answers
+        </Button>
+      </Link>
     </div>
   );
 };

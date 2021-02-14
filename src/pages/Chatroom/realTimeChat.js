@@ -4,7 +4,7 @@ import firebase from "firebase";
 
 import { useList } from "react-firebase-hooks/database";
 
-import ChatMessage from "../ChatMessage";
+import ChatMessage from "./ChatMessage";
 
 const realTimeChat = () => {
   const auth = firebase.auth();

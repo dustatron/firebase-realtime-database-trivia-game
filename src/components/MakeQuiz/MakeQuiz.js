@@ -12,7 +12,7 @@ import {
 
 const MakeQuiz = () => {
   const auth = firebase.auth();
-  const [name, setName] = useState(null);
+  const [name, setName] = useState("");
   const [error, setError] = useState(null);
   const ERROR_NEED_NAME = "Please name your quiz.";
   const ERROR_TO_LONG = "Your quiz name is too long.";
@@ -47,6 +47,7 @@ const MakeQuiz = () => {
   return (
     <Row>
       <Col md={{ span: 10, offset: 1 }}>
+        <div className="make-quiz__top-margin"></div>
         <Card>
           <Card.Header>
             <h2>Start A New Quiz</h2>

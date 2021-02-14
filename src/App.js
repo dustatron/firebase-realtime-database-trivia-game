@@ -9,9 +9,10 @@ import "firebase/auth";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
+import ChatRoom from "./pages/Chatroom";
 import Home from "./pages/Home";
-import ChatRoom from "./components/Chatroom";
-import Trivia from "./components/Trivia";
+import Trivia from "./pages/Trivia";
+import "./styles/main.scss";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
