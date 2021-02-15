@@ -1,4 +1,5 @@
 import React, { useState, useContext, createContext } from "react";
+
 /// Create Context
 export const quizListContext = createContext();
 export const updateQuizListContext = createContext();
@@ -14,9 +15,13 @@ export const useUpdateQuizList = () => {
 
 const QuizListContext = ({ children }) => {
   const [list, setList] = useState([]);
+  const handelUpdateList = (newList) => {
+    setList(newList);
+  };
+
   return (
     <quizListContext.Provider value={list}>
-      <updateQuizListContext.Provider value={setList}>
+      <updateQuizListContext.Provider value={handelUpdateList}>
         {children}
       </updateQuizListContext.Provider>
     </quizListContext.Provider>

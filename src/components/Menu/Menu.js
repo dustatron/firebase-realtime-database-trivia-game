@@ -54,7 +54,7 @@ const Menu = ({
           quizzes.map((q) => {
             const quiz = q.val();
             return (
-              <Link to={`${url}/this-quiz/${q.key}`} key={q.key}>
+              <Link to={`${url}/edit-quiz/${q.key}`} key={q.key}>
                 <ListGroup.Item
                   className="menu-item"
                   variant={selectedQuiz.key === q.key ? "success" : ""}

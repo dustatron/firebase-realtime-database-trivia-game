@@ -11,7 +11,7 @@ import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
 import firebase from "firebase";
 import Menu from "../../components/Menu";
 import Generator from "../../components/Generator";
-import ShowQuiz from "../../components/ShowQuiz";
+import EditQuiz from "../../components/EditQuiz";
 import ShowAnswers from "../../components/ShowAnswers";
 import MakeQuiz from "../../components/MakeQuiz";
 
@@ -34,7 +34,10 @@ const Trivia = () => {
 
   useEffect(() => {
     if (quizzes.length !== quizList.length) {
-      return updateQuizList(quizzes);
+      const quizList = quizzes.map((q) => {
+        return { ...q.val(), key: q.key };
+      });
+      return updateQuizList(quizList);
     }
   }, [quizzes, quizList, updateQuizList]);
 
@@ -75,8 +78,8 @@ const Trivia = () => {
             <Route path={`${path}/make-quiz`}>
               <MakeQuiz />
             </Route>
-            <Route path={`${path}/this-quiz/:quizId`}>
-              <ShowQuiz />
+            <Route path={`${path}/edit-quiz/:quizKey`}>
+              <EditQuiz />
             </Route>
             <Route path={`${path}/show-answers`}>
               <ShowAnswers />

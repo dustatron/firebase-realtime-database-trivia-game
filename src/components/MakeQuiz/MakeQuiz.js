@@ -33,9 +33,10 @@ const MakeQuiz = () => {
       return showError(ERROR_TO_LONG);
     }
     const { uid } = auth.currentUser;
+
     const thisQuiz = {
       title: name,
-      questions: {},
+      quiz: {},
     };
 
     return firebase

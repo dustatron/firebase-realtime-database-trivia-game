@@ -1,2 +1,2 @@
-import Generator from "./Generator";
-export default Generator;
+import GenerateModal from "./GenerateModal";
+export default GenerateModal;
