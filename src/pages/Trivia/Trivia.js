@@ -11,9 +11,10 @@ import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
 import firebase from "firebase";
 import Menu from "../../components/Menu";
 import Generator from "../../components/Generator";
-import EditQuiz from "../../components/EditQuiz";
+// import EditQuiz from "../../components/EditQuiz";
+import EditRound from "../../components/EditRound";
 import ShowAnswers from "../../components/ShowAnswers";
-import MakeQuiz from "../../components/MakeQuiz";
+import CreateRound from "../../components/CreateRound";
 
 const Trivia = () => {
   let { path } = useRouteMatch();
@@ -75,11 +76,11 @@ const Trivia = () => {
             <Route exact path={`${path}/generator`}>
               <Generator />
             </Route>
-            <Route path={`${path}/make-quiz`}>
-              <MakeQuiz />
+            <Route path={`${path}/create`}>
+              <CreateRound />
             </Route>
-            <Route path={`${path}/edit-quiz/:quizKey`}>
-              <EditQuiz />
+            <Route path={`${path}/edit-round/:quizKey`}>
+              <EditRound />
             </Route>
             <Route path={`${path}/show-answers`}>
               <ShowAnswers />

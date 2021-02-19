@@ -38,14 +38,14 @@ const Menu = ({
             Generator
           </ListGroup.Item>
         </Link>
-        <Link to={`${url}/make-quiz`}>
+        <Link to={`${url}/create`}>
           <ListGroup.Item
-            variant={selectedQuiz.title === "Make" ? "success" : ""}
+            variant={selectedQuiz.title === "create" ? "success" : ""}
             onClick={() => {
-              updateSelected({ title: "Make" });
+              updateSelected({ title: "create" });
             }}
           >
-            Make A Quiz
+            Create Round
           </ListGroup.Item>
         </Link>
 
@@ -54,7 +54,7 @@ const Menu = ({
           quizzes.map((q) => {
             const quiz = q.val();
             return (
-              <Link to={`${url}/edit-quiz/${q.key}`} key={q.key}>
+              <Link to={`${url}/edit-round/${q.key}`} key={q.key}>
                 <ListGroup.Item
                   className="menu-item"
                   variant={selectedQuiz.key === q.key ? "success" : ""}
