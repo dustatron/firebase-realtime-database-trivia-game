@@ -69,24 +69,25 @@ const ShowQuiz = () => {
 
     // append a new round
     if (thisQuiz.rounds) {
-      const numberOfRounds = Object.keys(thisQuiz.rounds);
-      const newRound = {
-        ...newQuizData[quizIndex].rounds,
-        [numberOfRounds.length + 1]: {
-          title: `Round ${numberOfRounds.length + 1}`,
-        },
+      const count = thisQuiz.rounds.length + 1;
+      const addRound = [{ title: `Round ${count}` }];
+      const newRoundData = { rounds: [...thisQuiz.rounds, ...addRound] };
+      const dataForFB = {
+        ...thisQuiz,
+        ...newRoundData,
       };
-      newQuizData[quizIndex].rounds = newRound;
-      const dataForFB = { ...thisQuiz, rounds: newRound };
+      newQuizData[quizIndex] = dataForFB;
       writeToFirebase(dataForFB);
+      setThisQuiz(dataForFB);
     }
 
     // Create round object
     if (!thisQuiz.rounds) {
-      const newRound = { 1: { title: "Round 1" } };
-      newQuizData[quizIndex].rounds = newRound;
-      const dataForFB = { ...thisQuiz, rounds: { [selectedRound]: newRound } };
+      const newRound = [{ title: "Round 1" }];
+      newQuizData[quizIndex].rounds = [newRound];
+      const dataForFB = { ...thisQuiz, rounds: [...newRound] };
       writeToFirebase(dataForFB);
+      setThisQuiz(dataForFB);
     }
 
     // write to local context state.
@@ -133,13 +134,14 @@ const ShowQuiz = () => {
 
   const handelDeleteRound = (num) => {
     let newQuizData = [...allQuizzes];
-    const removeRounds = thisQuiz.rounds.filter((round, index) => {
+    const removeRounds = allQuizzes[quizIndex].rounds.filter((round, index) => {
       if (round && index !== parseInt(num)) {
         return round;
       }
       return false;
     });
-    newQuizData[quizIndex].rounds = removeRounds;
+    newQuizData[quizIndex].rounds = [...removeRounds];
+    console.log(thisQuiz.rounds);
 
     // Update firebase
     const dataForFB = {
@@ -148,6 +150,9 @@ const ShowQuiz = () => {
     };
 
     writeToFirebase(dataForFB);
+
+    const currentQuiz = allQuizzes.find((q) => q.key === quizKey);
+    setThisQuiz(currentQuiz);
 
     // Update context state
     return updateQuizList(newQuizData);
@@ -169,7 +174,7 @@ const ShowQuiz = () => {
 
       <Row>
         <Col md={{ span: 10, offset: 1 }}>
-          <h2> {thisQuiz.title} Quiz</h2>
+          <h2> {thisQuiz.title} </h2>
         </Col>
       </Row>
       <Row>
