@@ -13,3 +13,13 @@
   min-height: 4em;
   margin: 5px;
 }
+
+.question-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+button {
+  margin: 5px;
+}

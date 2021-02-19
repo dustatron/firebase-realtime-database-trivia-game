@@ -9,6 +9,7 @@ import "./question.css";
 
 const Question = ({
   number,
+  handelDelete,
   q: { question, correct_answer, incorrect_answers },
 }) => {
   const addAnswer = useUpdateCurrentAnswer();
@@ -40,14 +41,6 @@ const Question = ({
     <Card className="question-card">
       <Card.Header>
         <h3>{clean(question)}</h3>
-        <Button
-          onClick={handleShowAnswer}
-          variant={isShowingAnswers ? "info" : "secondary"}
-        >
-          {isShowingAnswers ? "Hide Answer" : "Show Answer"}
-        </Button>
-        {/* // TODO: Make button delete question */}
-        <Button>🗑</Button>
       </Card.Header>
       <Card.Body>
         {/* <p>{clean(correct_answer)}</p> */}
@@ -67,6 +60,22 @@ const Question = ({
               {clean(q)}
             </Button>
           ))}
+        </div>
+        <div className="question-buttons">
+          <Button
+            onClick={handleShowAnswer}
+            variant={isShowingAnswers ? "info" : "secondary"}
+          >
+            {isShowingAnswers ? "🧟‍♂️ Hide" : "🤡 Answers"}
+          </Button>
+          {/* // TODO: Make button delete question */}
+          <Button
+            onClick={() => {
+              handelDelete(number);
+            }}
+          >
+            🗑
+          </Button>
         </div>
       </Card.Body>
     </Card>

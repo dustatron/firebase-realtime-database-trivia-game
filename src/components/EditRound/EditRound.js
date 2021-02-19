@@ -4,6 +4,7 @@ import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import GenerateModal from "../Generator";
 import NewQuestionModal from "../NewQuestionModal";
+import Question from "../Question";
 
 const initialFormData = {
   name: "",
@@ -13,13 +14,19 @@ const initialFormData = {
   type: "",
 };
 
+const initialQuestion = {
+  question: "",
+  correct_answer: "",
+  incorrect_answers: ["", "", ""],
+};
+
 const EditRound = () => {
   const [thisQuiz, setThisQuiz] = useState("");
   const [quizIndex, setQuizIndex] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [showQuestion, setShowQuestion] = useState(false);
-  const [questionData, setQuestionData] = useState("");
+  const [questionData, setQuestionData] = useState(initialQuestion);
 
   const { quizKey } = useParams();
   const allQuizzes = useQuizList();
@@ -36,18 +43,57 @@ const EditRound = () => {
     }
   }, [allQuizzes, quizKey, thisQuiz]);
 
-  const generateRound = async () => {
-    console.log("Generate Round");
-    // const roundData = await fetchQuiz();
-    // return updateRoundData(roundData);
-  };
-
   const handleShowQuestion = () => {
     setShowQuestion(true);
   };
 
   const handleShowGenerator = () => {
     setShowModal(true);
+  };
+
+  const fetchQuiz = async () => {
+    const { amount, category, difficulty, type } = formData;
+    const data = await fetch(
+      `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
+    );
+    const jsonData = await data.json();
+    console.log(jsonData.results);
+    return jsonData;
+  };
+
+  const generateRound = async () => {
+    const roundData = await fetchQuiz();
+    return updateRoundData(roundData.results);
+  };
+
+  const updateRoundData = (quizData) => {
+    if (!thisQuiz.questions) {
+      const updateQuiz = {
+        ...thisQuiz,
+        questions: [...quizData],
+      };
+      return setThisQuiz(updateQuiz);
+    }
+    const updateQuiz = {
+      ...thisQuiz,
+      questions: [...quizData, ...thisQuiz.questions],
+    };
+    return setThisQuiz(updateQuiz);
+  };
+
+  const handelAddQuestion = () => {
+    updateRoundData([questionData]);
+    setQuestionData(initialQuestion);
+  };
+
+  const handleDelete = (q) => {
+    const updatedQuestions = [...thisQuiz.questions];
+    updatedQuestions.slice(q, 0);
+    const updatedQuiz = {
+      ...thisQuiz,
+      questions: updatedQuestions,
+    };
+    setThisQuiz(updatedQuiz);
   };
 
   return (
@@ -57,7 +103,9 @@ const EditRound = () => {
         setShowQuestion={setShowQuestion}
         questionData={questionData}
         setQuestionData={setQuestionData}
+        addQuestion={handelAddQuestion}
       />
+
       <GenerateModal
         show={showModal}
         setShow={setShowModal}
@@ -81,6 +129,21 @@ const EditRound = () => {
               </Button>
             </Card.Body>
           </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ span: 10, offset: 1 }}>
+          {thisQuiz.questions &&
+            thisQuiz.questions.map((q, index) => {
+              return (
+                <Question
+                  number={index}
+                  q={q}
+                  key={index}
+                  handelDelete={handleDelete}
+                />
+              );
+            })}
         </Col>
       </Row>
     </>
