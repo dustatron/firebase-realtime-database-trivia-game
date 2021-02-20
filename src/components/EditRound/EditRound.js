@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import firebase from "firebase";
 import { useParams } from "react-router-dom";
-import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { useQuizList } from "../../context/QuizListContext";
+import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
+import { useUserLogin } from "../../context/UserContext";
 import GenerateModal from "../Generator";
 import NewQuestionModal from "../NewQuestionModal";
 import Question from "../Question";
@@ -27,9 +29,11 @@ const EditRound = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showQuestion, setShowQuestion] = useState(false);
   const [questionData, setQuestionData] = useState(initialQuestion);
+  const [isShowingSpinner, setIsShowingSpinner] = useState(false);
 
-  const { quizKey } = useParams();
   const allQuizzes = useQuizList();
+  const { quizKey } = useParams();
+  const { uid } = useUserLogin();
 
   useEffect(() => {
     if (!thisQuiz || thisQuiz.key !== quizKey) {
@@ -43,42 +47,79 @@ const EditRound = () => {
     }
   }, [allQuizzes, quizKey, thisQuiz]);
 
+  const writeToFirebase = (quizData) => {
+    firebase
+      .database()
+      .ref("quizzes/" + uid + "/" + quizKey)
+      .set(quizData, (error) => {
+        if (error) {
+          console.error("firebase write failed.", error.message);
+        } else {
+          // Data saved successfully!
+          console.log("firebase wire success");
+        }
+      });
+  };
+
+  const updateRoundData = (quizData) => {
+    let newQuizData = [...allQuizzes];
+
+    if (!thisQuiz.questions) {
+      const updateQuiz = {
+        ...thisQuiz,
+        questions: [...quizData],
+      };
+      newQuizData[quizIndex].questions = [...quizData];
+      writeToFirebase(updateQuiz);
+      return setThisQuiz(updateQuiz);
+    }
+
+    const updateQuiz = {
+      ...thisQuiz,
+      questions: [...quizData, ...thisQuiz.questions],
+    };
+    newQuizData[quizIndex].questions = [...quizData, ...thisQuiz.questions];
+    writeToFirebase(updateQuiz);
+    setThisQuiz(updateQuiz);
+  };
+
+  const fetchQuiz = async () => {
+    setIsShowingSpinner(true);
+    const { amount, category, difficulty, type } = formData;
+    const data = await fetch(
+      `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
+    );
+    const jsonData = await data.json();
+    setIsShowingSpinner(false);
+    return jsonData;
+  };
+
+  const deleteRoundData = (questions) => {
+    let newQuizData = [...allQuizzes];
+    newQuizData[quizIndex].questions = [...questions];
+
+    const updateQuiz = {
+      ...thisQuiz,
+      questions: [...questions],
+    };
+
+    writeToFirebase(updateQuiz);
+    setThisQuiz(updateQuiz);
+  };
+
+  const generateQuestions = async () => {
+    const roundData = await fetchQuiz();
+    return updateRoundData(roundData.results);
+  };
+
+  /* Handle Things */
+
   const handleShowQuestion = () => {
     setShowQuestion(true);
   };
 
   const handleShowGenerator = () => {
     setShowModal(true);
-  };
-
-  const fetchQuiz = async () => {
-    const { amount, category, difficulty, type } = formData;
-    const data = await fetch(
-      `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
-    );
-    const jsonData = await data.json();
-    console.log(jsonData.results);
-    return jsonData;
-  };
-
-  const generateRound = async () => {
-    const roundData = await fetchQuiz();
-    return updateRoundData(roundData.results);
-  };
-
-  const updateRoundData = (quizData) => {
-    if (!thisQuiz.questions) {
-      const updateQuiz = {
-        ...thisQuiz,
-        questions: [...quizData],
-      };
-      return setThisQuiz(updateQuiz);
-    }
-    const updateQuiz = {
-      ...thisQuiz,
-      questions: [...quizData, ...thisQuiz.questions],
-    };
-    return setThisQuiz(updateQuiz);
   };
 
   const handelAddQuestion = () => {
@@ -88,12 +129,12 @@ const EditRound = () => {
 
   const handleDelete = (q) => {
     const updatedQuestions = [...thisQuiz.questions];
-    updatedQuestions.slice(q, 0);
-    const updatedQuiz = {
-      ...thisQuiz,
-      questions: updatedQuestions,
-    };
-    setThisQuiz(updatedQuiz);
+    updatedQuestions.splice(parseInt(q), 1);
+    // const updatedQuiz = {
+    //   ...thisQuiz,
+    //   questions: updatedQuestions,
+    // };
+    deleteRoundData(updatedQuestions);
   };
 
   return (
@@ -109,7 +150,7 @@ const EditRound = () => {
       <GenerateModal
         show={showModal}
         setShow={setShowModal}
-        getQuestions={generateRound}
+        getQuestions={generateQuestions}
         formData={formData}
         setFormData={setFormData}
       />
@@ -133,6 +174,13 @@ const EditRound = () => {
       </Row>
       <Row>
         <Col md={{ span: 10, offset: 1 }}>
+          {isShowingSpinner && (
+            <div className="text-center">
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          )}
           {thisQuiz.questions &&
             thisQuiz.questions.map((q, index) => {
               return (

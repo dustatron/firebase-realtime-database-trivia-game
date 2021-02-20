@@ -10,11 +10,9 @@ import { useList } from "react-firebase-hooks/database";
 import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
 import firebase from "firebase";
 import Menu from "../../components/Menu";
-import Generator from "../../components/Generator";
-// import EditQuiz from "../../components/EditQuiz";
 import EditRound from "../../components/EditRound";
-import ShowAnswers from "../../components/ShowAnswers";
 import CreateRound from "../../components/CreateRound";
+import MakeQuiz from "../../components/MakeQuiz";
 
 const Trivia = () => {
   let { path } = useRouteMatch();
@@ -71,10 +69,7 @@ const Trivia = () => {
         <Col sm={10}>
           <Switch>
             <Route exact path={path}>
-              <h2>Make Quiz</h2>
-            </Route>
-            <Route exact path={`${path}/generator`}>
-              <Generator />
+              <h2>Trivia Making made easy</h2>
             </Route>
             <Route path={`${path}/create`}>
               <CreateRound />
@@ -82,8 +77,8 @@ const Trivia = () => {
             <Route path={`${path}/edit-round/:quizKey`}>
               <EditRound />
             </Route>
-            <Route path={`${path}/show-answers`}>
-              <ShowAnswers />
+            <Route path={`${path}/make-quiz`}>
+              <MakeQuiz />
             </Route>
           </Switch>
         </Col>

@@ -65,7 +65,6 @@ const NewQuestionModal = ({
 
   return (
     <Form>
-      q
       <Modal show={showQuestion} onHide={handleClose} animation={true}>
         <Row>
           <Col md={{ span: 10, offset: 1 }}>

@@ -28,16 +28,6 @@ const Menu = ({
       />
       <h2>Menu</h2>
       <ListGroup>
-        <Link to={`${url}/generator`}>
-          <ListGroup.Item
-            variant={selectedQuiz.title === "Generator" ? "success" : ""}
-            onClick={() => {
-              updateSelected({ title: "Generator" });
-            }}
-          >
-            Generator
-          </ListGroup.Item>
-        </Link>
         <Link to={`${url}/create`}>
           <ListGroup.Item
             variant={selectedQuiz.title === "create" ? "success" : ""}
@@ -78,14 +68,8 @@ const Menu = ({
           })}
         {loading && <Spinner animation="border" />}
       </ListGroup>
-      <Link to={`${url}/show-answers`}>
-        <Button
-          onClick={() => {
-            updateSelected({});
-          }}
-        >
-          Get Answers
-        </Button>
+      <Link to={`${url}/make-quiz`}>
+        <Button>Make Quiz</Button>
       </Link>
     </div>
   );
