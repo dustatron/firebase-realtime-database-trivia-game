@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import { useUserLogin } from "../../context/UserContext";
-import {
-  useSelectedQuizUpdate,
-  useSelectedQuiz,
-} from "../../context/SelectedQuizContext";
+// import { useUserLogin } from "../../context/UserContext";
 import { useList } from "react-firebase-hooks/database";
+import { globalStateContext } from "../../context/GlobalContext";
 import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
 import firebase from "firebase";
 import Menu from "../../components/Menu";
@@ -16,12 +13,9 @@ import MakeQuiz from "../../components/MakeQuiz";
 
 const Trivia = () => {
   let { path } = useRouteMatch();
-  const user = useUserLogin();
-  const dbRef = firebase.database().ref("quizzes/" + user.uid);
 
-  const updateSelected = useSelectedQuizUpdate();
-
-  const selectedQuiz = useSelectedQuiz();
+  const { uid, currentQuiz } = useContext(globalStateContext);
+  const dbRef = firebase.database().ref("quizzes/" + uid);
 
   const updateQuizList = useUpdateQuizList();
   const quizList = useQuizList();
@@ -59,8 +53,7 @@ const Trivia = () => {
             show={show}
             setShow={setShow}
             current={current}
-            updateSelected={updateSelected}
-            selectedQuiz={selectedQuiz}
+            currentQuiz={currentQuiz}
             quizzes={quizzes}
             loading={loading}
             showModal={showModal}

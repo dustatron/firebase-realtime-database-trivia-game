@@ -1,32 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import { Button } from "react-bootstrap";
-
-import { useUpdateUserLogin, useUserLogin } from "../../context/UserContext";
+import {
+  globalStateContext,
+  globalDispatchContext,
+} from "../../context/GlobalContext";
+import { LOG_USER_IN, LOG_USER_OUT } from "../../context/constants";
 
 function onAuthStateChange(callback) {
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      callback({ loggedIn: true, uid: firebase.auth().currentUser.uid });
+      callback({
+        type: LOG_USER_IN,
+        payload: { isloggedIn: true, uid: firebase.auth().currentUser.uid },
+      });
     } else {
-      callback({ loggedIn: false });
+      callback({
+        type: LOG_USER_OUT,
+        payload: { isloggedIn: false, uid: null },
+      });
     }
   });
 }
 
 const Nav = () => {
   const auth = firebase.auth();
-  const user = useUserLogin();
-  const setUser = useUpdateUserLogin();
+  const { isloggedIn } = useContext(globalStateContext);
+  const dispatch = useContext(globalDispatchContext);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChange(setUser);
+    const unsubscribe = onAuthStateChange(dispatch);
 
     return () => {
       unsubscribe();
     };
-  }, [setUser]);
+  }, [dispatch, isloggedIn]);
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -76,7 +85,7 @@ const Nav = () => {
             </li>
           </ul>
           <div className=" my-2 my-lg-0">
-            {user.loggedIn ? (
+            {isloggedIn ? (
               <Button onClick={signOut}> Sign Out </Button>
             ) : (
               <Button onClick={signInWithGoogle}> Sign In </Button>

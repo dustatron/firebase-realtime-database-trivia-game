@@ -1,51 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { useParams } from "react-router-dom";
 import { useQuizList } from "../../context/QuizListContext";
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
-import { useUserLogin } from "../../context/UserContext";
-import GenerateModal from "../Generator";
+// import { useUserLogin } from "../../context/UserContext";
+import {
+  globalStateContext,
+  globalDispatchContext,
+} from "../../context/GlobalContext";
+import {
+  TOGGLE_GENERATE_MODAL,
+  TOGGLE_CUSTOM_MODAL,
+  SET_CURRENT_QUIZ,
+} from "../../context/constants";
+import initial from "./initialState";
+import GenerateModal from "../GeneratorModal/GenerateModal";
 import NewQuestionModal from "../NewQuestionModal";
 import Question from "../Question";
 
-const initialFormData = {
-  name: "",
-  amount: 3,
-  category: "",
-  difficulty: "",
-  type: "",
-};
-
-const initialQuestion = {
-  question: "",
-  correct_answer: "",
-  incorrect_answers: ["", "", ""],
-};
-
 const EditRound = () => {
-  const [thisQuiz, setThisQuiz] = useState("");
+  // GLOBAL STATE
+  const {
+    uid,
+    isGenerateModalShowing,
+    isCustomQuestionModalShowing,
+    currentQuiz,
+  } = useContext(globalStateContext);
+
+  const dispatch = useContext(globalDispatchContext);
+
   const [quizIndex, setQuizIndex] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState(initialFormData);
-  const [showQuestion, setShowQuestion] = useState(false);
-  const [questionData, setQuestionData] = useState(initialQuestion);
+  const [formData, setFormData] = useState(initial.formData);
+  const [questionData, setQuestionData] = useState(initial.question);
   const [isShowingSpinner, setIsShowingSpinner] = useState(false);
 
   const allQuizzes = useQuizList();
   const { quizKey } = useParams();
-  const { uid } = useUserLogin();
 
   useEffect(() => {
-    if (!thisQuiz || thisQuiz.key !== quizKey) {
+    if (!currentQuiz || currentQuiz.key !== quizKey) {
       const currentQuiz = allQuizzes.find((q) => q.key === quizKey);
-      setThisQuiz(currentQuiz);
+      dispatch({ type: SET_CURRENT_QUIZ, payload: currentQuiz });
       setQuizIndex(
         allQuizzes.findIndex((q) => {
           return q.key === quizKey;
         })
       );
     }
-  }, [allQuizzes, quizKey, thisQuiz]);
+  }, [allQuizzes, quizKey, currentQuiz, dispatch]);
+
+  const toggleGenerateModal = () => {
+    dispatch({ type: TOGGLE_GENERATE_MODAL });
+  };
+
+  const toggleCustomQuestionModal = () => {
+    dispatch({ type: TOGGLE_CUSTOM_MODAL });
+  };
 
   const writeToFirebase = (quizData) => {
     firebase
@@ -64,23 +74,23 @@ const EditRound = () => {
   const updateRoundData = (quizData) => {
     let newQuizData = [...allQuizzes];
 
-    if (!thisQuiz.questions) {
+    if (!currentQuiz.questions) {
       const updateQuiz = {
-        ...thisQuiz,
+        ...currentQuiz,
         questions: [...quizData],
       };
       newQuizData[quizIndex].questions = [...quizData];
       writeToFirebase(updateQuiz);
-      return setThisQuiz(updateQuiz);
+      dispatch({ type: SET_CURRENT_QUIZ, payload: updateQuiz });
     }
 
     const updateQuiz = {
-      ...thisQuiz,
-      questions: [...quizData, ...thisQuiz.questions],
+      ...currentQuiz,
+      questions: [...quizData, ...currentQuiz.questions],
     };
-    newQuizData[quizIndex].questions = [...quizData, ...thisQuiz.questions];
+    newQuizData[quizIndex].questions = [...quizData, ...currentQuiz.questions];
     writeToFirebase(updateQuiz);
-    setThisQuiz(updateQuiz);
+    dispatch({ type: SET_CURRENT_QUIZ, payload: updateQuiz });
   };
 
   const fetchQuiz = async () => {
@@ -99,12 +109,12 @@ const EditRound = () => {
     newQuizData[quizIndex].questions = [...questions];
 
     const updateQuiz = {
-      ...thisQuiz,
+      ...currentQuiz,
       questions: [...questions],
     };
 
     writeToFirebase(updateQuiz);
-    setThisQuiz(updateQuiz);
+    dispatch({ type: SET_CURRENT_QUIZ, payload: updateQuiz });
   };
 
   const generateQuestions = async () => {
@@ -113,43 +123,34 @@ const EditRound = () => {
   };
 
   /* Handle Things */
-
-  const handleShowQuestion = () => {
-    setShowQuestion(true);
-  };
-
   const handleShowGenerator = () => {
-    setShowModal(true);
+    toggleGenerateModal(true);
   };
 
   const handelAddQuestion = () => {
     updateRoundData([questionData]);
-    setQuestionData(initialQuestion);
+    setQuestionData(initial.question);
   };
 
   const handleDelete = (q) => {
-    const updatedQuestions = [...thisQuiz.questions];
+    const updatedQuestions = [...currentQuiz.questions];
     updatedQuestions.splice(parseInt(q), 1);
-    // const updatedQuiz = {
-    //   ...thisQuiz,
-    //   questions: updatedQuestions,
-    // };
     deleteRoundData(updatedQuestions);
   };
 
   return (
     <>
       <NewQuestionModal
-        showQuestion={showQuestion}
-        setShowQuestion={setShowQuestion}
+        showQuestion={isCustomQuestionModalShowing}
+        setShowQuestion={toggleCustomQuestionModal}
         questionData={questionData}
         setQuestionData={setQuestionData}
         addQuestion={handelAddQuestion}
       />
 
       <GenerateModal
-        show={showModal}
-        setShow={setShowModal}
+        show={isGenerateModalShowing}
+        setShow={toggleGenerateModal}
         getQuestions={generateQuestions}
         formData={formData}
         setFormData={setFormData}
@@ -159,10 +160,12 @@ const EditRound = () => {
         <Col md={{ span: 8, offset: 2 }}>
           <Card>
             <Card.Header>
-              <h2 className="text-center">"{thisQuiz && thisQuiz.title}"</h2>
+              <h2 className="text-center">
+                "{currentQuiz && currentQuiz.title}"
+              </h2>
             </Card.Header>
             <Card.Body className="text-center">
-              <Button variant="warning" onClick={handleShowQuestion}>
+              <Button variant="warning" onClick={toggleCustomQuestionModal}>
                 ➕ Question
               </Button>
               <Button variant="info" onClick={handleShowGenerator}>
@@ -181,8 +184,8 @@ const EditRound = () => {
               </Spinner>
             </div>
           )}
-          {thisQuiz.questions &&
-            thisQuiz.questions.map((q, index) => {
+          {currentQuiz.questions &&
+            currentQuiz.questions.map((q, index) => {
               return (
                 <Question
                   number={index}

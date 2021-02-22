@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import firebase from "firebase";
-import { useUserLogin } from "../../context/UserContext";
+import { globalStateContext } from "../../context/GlobalContext";
 import { useHistory } from "react-router-dom";
 import { useUpdateQuizList } from "../../context/QuizListContext";
 import { useList } from "react-firebase-hooks/database";
@@ -17,8 +17,9 @@ import {
 
 const CreateRound = () => {
   const auth = firebase.auth();
-  const user = useUserLogin();
-  const dbRef = firebase.database().ref("quizzes/" + user.uid);
+  const { uid } = useContext(globalStateContext);
+
+  const dbRef = firebase.database().ref("quizzes/" + uid);
   const updateQuizList = useUpdateQuizList();
   const history = useHistory();
 

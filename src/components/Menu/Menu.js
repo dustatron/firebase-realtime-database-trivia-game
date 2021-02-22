@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ListGroup, Button, Spinner } from "react-bootstrap";
 import { useRouteMatch, Link } from "react-router-dom";
+import { globalDispatchContext } from "../../context/GlobalContext";
+import { SET_CURRENT_QUIZ } from "../../context/constants";
 import ConfirmModel from "./ConfirmModal";
 
 import "./menu.css";
@@ -10,13 +12,13 @@ const Menu = ({
   show,
   setShow,
   current,
-  updateSelected,
-  selectedQuiz,
+  currentQuiz,
   quizzes,
   loading,
   showModal,
 }) => {
   let { url } = useRouteMatch();
+  const dispatch = useContext(globalDispatchContext);
 
   return (
     <div>
@@ -30,9 +32,12 @@ const Menu = ({
       <ListGroup>
         <Link to={`${url}/create`}>
           <ListGroup.Item
-            variant={selectedQuiz.title === "create" ? "success" : ""}
+            variant={currentQuiz.title === "create" ? "success" : ""}
             onClick={() => {
-              updateSelected({ title: "create" });
+              dispatch({
+                type: SET_CURRENT_QUIZ,
+                payload: { title: "create" },
+              });
             }}
           >
             Create Round
@@ -47,11 +52,7 @@ const Menu = ({
               <Link to={`${url}/edit-round/${q.key}`} key={q.key}>
                 <ListGroup.Item
                   className="menu-item"
-                  variant={selectedQuiz.key === q.key ? "success" : ""}
-                  onClick={() => {
-                    const selectData = { ...quiz, key: q.key };
-                    updateSelected(selectData);
-                  }}
+                  variant={currentQuiz.key === q.key ? "success" : ""}
                 >
                   {quiz.title}
                   <button
@@ -69,7 +70,17 @@ const Menu = ({
         {loading && <Spinner animation="border" />}
       </ListGroup>
       <Link to={`${url}/make-quiz`}>
-        <Button>Make Quiz</Button>
+        <Button
+          variant={currentQuiz.title === "make" ? "success" : ""}
+          onClick={() => {
+            dispatch({
+              type: SET_CURRENT_QUIZ,
+              payload: { title: "make" },
+            });
+          }}
+        >
+          Make Quiz
+        </Button>
       </Link>
     </div>
   );

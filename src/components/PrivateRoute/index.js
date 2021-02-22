@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useUserLogin } from "../../context/UserContext";
+import { globalStateContext } from "../../context/GlobalContext";
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const user = useUserLogin();
+  const { isloggedIn } = useContext(globalStateContext);
   return (
     <Route
       {...rest}
       render={(props) =>
-        user.loggedIn ? <Component {...props} /> : <Redirect to="/login" />
+        isloggedIn ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

@@ -4,26 +4,23 @@ import "./index.css";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "react-query";
 import reportWebVitals from "./reportWebVitals";
-import SelectedQuizContext from "./context/SelectedQuizContext";
 import AnswersContext from "./context/AnswersContext";
-import UserContext from "./context/UserContext";
 import QuizListContext from "./context/QuizListContext";
+import GlobalContext from "./context/GlobalContext";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
-    <SelectedQuizContext>
+    <GlobalContext>
       <AnswersContext>
-        <UserContext>
-          <QuizListContext>
-            <React.StrictMode>
-              <App />
-            </React.StrictMode>
-          </QuizListContext>
-        </UserContext>
+        <QuizListContext>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </QuizListContext>
       </AnswersContext>
-    </SelectedQuizContext>
+    </GlobalContext>
   </QueryClientProvider>,
   document.getElementById("root")
 );
