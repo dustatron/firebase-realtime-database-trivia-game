@@ -5,6 +5,7 @@ import {
   TOGGLE_GENERATE_MODAL,
   TOGGLE_CUSTOM_MODAL,
   SET_CURRENT_QUIZ,
+  SET_FULL_QUIZ_LIST,
 } from "./constants";
 
 export const globalStateContext = React.createContext();
@@ -16,6 +17,7 @@ const initialState = {
   isGenerateModalShowing: false,
   isCustomQuestionModalShowing: false,
   currentQuiz: {},
+  fullQuizList: [],
 };
 
 const reducer = (state, action) => {
@@ -37,6 +39,8 @@ const reducer = (state, action) => {
       };
     case SET_CURRENT_QUIZ:
       return { ...state, currentQuiz: payload };
+    case SET_FULL_QUIZ_LIST:
+      return { ...state, fullQuizList: payload };
 
     default:
       return state;

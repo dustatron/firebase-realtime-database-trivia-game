@@ -25,6 +25,7 @@ const EditRound = () => {
     isGenerateModalShowing,
     isCustomQuestionModalShowing,
     currentQuiz,
+    fullQuizList,
   } = useContext(globalStateContext);
 
   const dispatch = useContext(globalDispatchContext);
@@ -34,20 +35,19 @@ const EditRound = () => {
   const [questionData, setQuestionData] = useState(initial.question);
   const [isShowingSpinner, setIsShowingSpinner] = useState(false);
 
-  const allQuizzes = useQuizList();
   const { quizKey } = useParams();
 
   useEffect(() => {
     if (!currentQuiz || currentQuiz.key !== quizKey) {
-      const currentQuiz = allQuizzes.find((q) => q.key === quizKey);
+      const currentQuiz = fullQuizList.find((q) => q.key === quizKey);
       dispatch({ type: SET_CURRENT_QUIZ, payload: currentQuiz });
       setQuizIndex(
-        allQuizzes.findIndex((q) => {
+        fullQuizList.findIndex((q) => {
           return q.key === quizKey;
         })
       );
     }
-  }, [allQuizzes, quizKey, currentQuiz, dispatch]);
+  }, [fullQuizList, quizKey, currentQuiz, dispatch]);
 
   const toggleGenerateModal = () => {
     dispatch({ type: TOGGLE_GENERATE_MODAL });
@@ -72,7 +72,7 @@ const EditRound = () => {
   };
 
   const updateRoundData = (quizData) => {
-    let newQuizData = [...allQuizzes];
+    let newQuizData = [...fullQuizList];
 
     if (!currentQuiz.questions) {
       const updateQuiz = {
@@ -105,7 +105,7 @@ const EditRound = () => {
   };
 
   const deleteRoundData = (questions) => {
-    let newQuizData = [...allQuizzes];
+    let newQuizData = [...fullQuizList];
     newQuizData[quizIndex].questions = [...questions];
 
     const updateQuiz = {

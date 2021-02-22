@@ -32,7 +32,9 @@ const Menu = ({
       <ListGroup>
         <Link to={`${url}/create`}>
           <ListGroup.Item
-            variant={currentQuiz.title === "create" ? "success" : ""}
+            variant={
+              currentQuiz && currentQuiz.title === "create" ? "success" : ""
+            }
             onClick={() => {
               dispatch({
                 type: SET_CURRENT_QUIZ,
@@ -49,10 +51,18 @@ const Menu = ({
           quizzes.map((q) => {
             const quiz = q.val();
             return (
-              <Link to={`${url}/edit-round/${q.key}`} key={q.key}>
+              <Link
+                to={`${url}/edit-round/${q.key}`}
+                key={q.key}
+                onClick={() => {
+                  dispatch({ title: SET_CURRENT_QUIZ, payload: q });
+                }}
+              >
                 <ListGroup.Item
                   className="menu-item"
-                  variant={currentQuiz.key === q.key ? "success" : ""}
+                  variant={
+                    currentQuiz && currentQuiz.key === q.key ? "success" : ""
+                  }
                 >
                   {quiz.title}
                   <button
@@ -71,13 +81,7 @@ const Menu = ({
       </ListGroup>
       <Link to={`${url}/make-quiz`}>
         <Button
-          variant={currentQuiz.title === "make" ? "success" : ""}
-          onClick={() => {
-            dispatch({
-              type: SET_CURRENT_QUIZ,
-              payload: { title: "make" },
-            });
-          }}
+          variant={currentQuiz && currentQuiz.title === "make" ? "success" : ""}
         >
           Make Quiz
         </Button>

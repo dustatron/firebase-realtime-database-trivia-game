@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-// import { useUserLogin } from "../../context/UserContext";
 import { useList } from "react-firebase-hooks/database";
-import { globalStateContext } from "../../context/GlobalContext";
+import {
+  globalStateContext,
+  globalDispatchContext,
+} from "../../context/GlobalContext";
+import { SET_FULL_QUIZ_LIST } from "../../context/constants";
 import { useUpdateQuizList, useQuizList } from "../../context/QuizListContext";
 import firebase from "firebase";
 import Menu from "../../components/Menu";
@@ -14,9 +17,12 @@ import MakeQuiz from "../../components/MakeQuiz";
 const Trivia = () => {
   let { path } = useRouteMatch();
 
-  const { uid, currentQuiz } = useContext(globalStateContext);
+  const { uid, currentQuiz, fullQuizList } = useContext(globalStateContext);
+  const dispatch = useContext(globalDispatchContext);
+
   const dbRef = firebase.database().ref("quizzes/" + uid);
 
+  /* TODO: kill these*/
   const updateQuizList = useUpdateQuizList();
   const quizList = useQuizList();
 
@@ -26,11 +32,17 @@ const Trivia = () => {
   const [current, setCurrent] = useState(false);
 
   useEffect(() => {
-    if (quizzes.length !== quizList.length) {
+    // if (quizzes.length !== quizList.length) {
+    //   const quizList = quizzes.map((q) => {
+    //     return { ...q.val(), key: q.key };
+    //   });
+    //   return updateQuizList(quizList);
+    // }
+    if (quizzes.length !== fullQuizList.length) {
       const quizList = quizzes.map((q) => {
         return { ...q.val(), key: q.key };
       });
-      return updateQuizList(quizList);
+      dispatch({ type: SET_FULL_QUIZ_LIST, payload: quizList });
     }
   }, [quizzes, quizList, updateQuizList]);
 
