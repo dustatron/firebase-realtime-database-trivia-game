@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import firebase from "firebase";
 import { useParams } from "react-router-dom";
-import { useQuizList } from "../../context/QuizListContext";
 import { Card, Button, Row, Col, Spinner } from "react-bootstrap";
-// import { useUserLogin } from "../../context/UserContext";
 import {
   globalStateContext,
   globalDispatchContext,
@@ -12,50 +10,45 @@ import {
   TOGGLE_GENERATE_MODAL,
   TOGGLE_CUSTOM_MODAL,
   SET_CURRENT_QUIZ,
+  SET_QUIZ_INDEX,
+  UPDATE_CURRENT_AND_FULL,
 } from "../../context/constants";
 import initial from "./initialState";
+import { fetchQuizApi } from "../../utils/fetchApi";
 import GenerateModal from "../GeneratorModal/GenerateModal";
 import NewQuestionModal from "../NewQuestionModal";
 import Question from "../Question";
 
+const resetFormState = () => {
+  return initial.question;
+};
+
 const EditRound = () => {
-  // GLOBAL STATE
+  const { quizKey } = useParams();
+  const dispatch = useContext(globalDispatchContext);
   const {
     uid,
     isGenerateModalShowing,
     isCustomQuestionModalShowing,
     currentQuiz,
     fullQuizList,
+    currentQuizIndex,
   } = useContext(globalStateContext);
 
-  const dispatch = useContext(globalDispatchContext);
-
-  const [quizIndex, setQuizIndex] = useState("");
   const [formData, setFormData] = useState(initial.formData);
   const [questionData, setQuestionData] = useState(initial.question);
   const [isShowingSpinner, setIsShowingSpinner] = useState(false);
-
-  const { quizKey } = useParams();
 
   useEffect(() => {
     if (!currentQuiz || currentQuiz.key !== quizKey) {
       const currentQuiz = fullQuizList.find((q) => q.key === quizKey);
       dispatch({ type: SET_CURRENT_QUIZ, payload: currentQuiz });
-      setQuizIndex(
-        fullQuizList.findIndex((q) => {
-          return q.key === quizKey;
-        })
-      );
+      const index = fullQuizList.findIndex((q) => {
+        return q.key === quizKey;
+      });
+      dispatch({ type: SET_QUIZ_INDEX, payload: index });
     }
   }, [fullQuizList, quizKey, currentQuiz, dispatch]);
-
-  const toggleGenerateModal = () => {
-    dispatch({ type: TOGGLE_GENERATE_MODAL });
-  };
-
-  const toggleCustomQuestionModal = () => {
-    dispatch({ type: TOGGLE_CUSTOM_MODAL });
-  };
 
   const writeToFirebase = (quizData) => {
     firebase
@@ -64,78 +57,66 @@ const EditRound = () => {
       .set(quizData, (error) => {
         if (error) {
           console.error("firebase write failed.", error.message);
-        } else {
-          // Data saved successfully!
-          console.log("firebase wire success");
         }
       });
   };
 
   const updateRoundData = (quizData) => {
-    let newQuizData = [...fullQuizList];
-
-    if (!currentQuiz.questions) {
-      const updateQuiz = {
-        ...currentQuiz,
-        questions: [...quizData],
-      };
-      newQuizData[quizIndex].questions = [...quizData];
-      writeToFirebase(updateQuiz);
-      dispatch({ type: SET_CURRENT_QUIZ, payload: updateQuiz });
-    }
+    const hasCurrentQuestions = !currentQuiz.questions
+      ? []
+      : currentQuiz.questions;
 
     const updateQuiz = {
       ...currentQuiz,
-      questions: [...quizData, ...currentQuiz.questions],
+      questions: [...quizData, ...hasCurrentQuestions],
     };
-    newQuizData[quizIndex].questions = [...quizData, ...currentQuiz.questions];
-    writeToFirebase(updateQuiz);
-    dispatch({ type: SET_CURRENT_QUIZ, payload: updateQuiz });
-  };
 
-  const fetchQuiz = async () => {
-    setIsShowingSpinner(true);
-    const { amount, category, difficulty, type } = formData;
-    const data = await fetch(
-      `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=${type}`
-    );
-    const jsonData = await data.json();
-    setIsShowingSpinner(false);
-    return jsonData;
-  };
-
-  const deleteRoundData = (questions) => {
     let newQuizData = [...fullQuizList];
-    newQuizData[quizIndex].questions = [...questions];
-
-    const updateQuiz = {
-      ...currentQuiz,
-      questions: [...questions],
-    };
+    newQuizData[currentQuizIndex] = updateQuiz;
 
     writeToFirebase(updateQuiz);
-    dispatch({ type: SET_CURRENT_QUIZ, payload: updateQuiz });
+    dispatch({
+      type: UPDATE_CURRENT_AND_FULL,
+      payload: { current: updateQuiz, full: [...newQuizData] },
+    });
   };
 
   const generateQuestions = async () => {
-    const roundData = await fetchQuiz();
-    return updateRoundData(roundData.results);
+    const roundData = await fetchQuizApi(setIsShowingSpinner, formData);
+    updateRoundData(roundData.results);
   };
 
   /* Handle Things */
-  const handleShowGenerator = () => {
-    toggleGenerateModal(true);
+  const toggleGenerateModal = () => {
+    dispatch({ type: TOGGLE_GENERATE_MODAL });
+  };
+
+  const toggleCustomQuestionModal = () => {
+    dispatch({ type: TOGGLE_CUSTOM_MODAL });
   };
 
   const handelAddQuestion = () => {
     updateRoundData([questionData]);
-    setQuestionData(initial.question);
+    setQuestionData(resetFormState());
   };
 
   const handleDelete = (q) => {
     const updatedQuestions = [...currentQuiz.questions];
     updatedQuestions.splice(parseInt(q), 1);
-    deleteRoundData(updatedQuestions);
+
+    const updateQuiz = {
+      ...currentQuiz,
+      questions: [...updatedQuestions],
+    };
+
+    let newQuizData = [...fullQuizList];
+    newQuizData[currentQuizIndex] = updateQuiz;
+
+    writeToFirebase(updateQuiz);
+    dispatch({
+      type: UPDATE_CURRENT_AND_FULL,
+      payload: { current: updateQuiz, full: [...newQuizData] },
+    });
   };
 
   return (
@@ -168,7 +149,7 @@ const EditRound = () => {
               <Button variant="warning" onClick={toggleCustomQuestionModal}>
                 ➕ Question
               </Button>
-              <Button variant="info" onClick={handleShowGenerator}>
+              <Button variant="info" onClick={toggleGenerateModal}>
                 🤖 Generate
               </Button>
             </Card.Body>

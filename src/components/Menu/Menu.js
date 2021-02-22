@@ -11,11 +11,9 @@ const Menu = ({
   handleDelete,
   show,
   setShow,
-  current,
   currentQuiz,
   quizzes,
   loading,
-  showModal,
 }) => {
   let { url } = useRouteMatch();
   const dispatch = useContext(globalDispatchContext);
@@ -26,7 +24,7 @@ const Menu = ({
         del={handleDelete}
         show={show}
         setShow={setShow}
-        quiz={current}
+        quiz={currentQuiz}
       />
       <h2>Menu</h2>
       <ListGroup>
@@ -68,7 +66,7 @@ const Menu = ({
                   <button
                     className="menu-delete"
                     onClick={() => {
-                      showModal(q);
+                      setShow(true);
                     }}
                   >
                     🗑
@@ -79,7 +77,15 @@ const Menu = ({
           })}
         {loading && <Spinner animation="border" />}
       </ListGroup>
-      <Link to={`${url}/make-quiz`}>
+      <Link
+        to={`${url}/make-quiz`}
+        onClick={() => {
+          dispatch({
+            type: SET_CURRENT_QUIZ,
+            payload: { title: "make" },
+          });
+        }}
+      >
         <Button
           variant={currentQuiz && currentQuiz.title === "make" ? "success" : ""}
         >

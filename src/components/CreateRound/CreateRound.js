@@ -1,8 +1,11 @@
 import React, { useState, useContext } from "react";
 import firebase from "firebase";
-import { globalStateContext } from "../../context/GlobalContext";
+import {
+  globalStateContext,
+  globalDispatchContext,
+} from "../../context/GlobalContext";
+import { SET_FULL_QUIZ_LIST } from "../../context/constants";
 import { useHistory } from "react-router-dom";
-import { useUpdateQuizList } from "../../context/QuizListContext";
 import { useList } from "react-firebase-hooks/database";
 
 import {
@@ -18,9 +21,10 @@ import {
 const CreateRound = () => {
   const auth = firebase.auth();
   const { uid } = useContext(globalStateContext);
+  const dispatch = useContext(globalDispatchContext);
 
   const dbRef = firebase.database().ref("quizzes/" + uid);
-  const updateQuizList = useUpdateQuizList();
+  // const updateQuizList = useUpdateQuizList();
   const history = useHistory();
 
   const [name, setName] = useState("");
@@ -74,7 +78,11 @@ const CreateRound = () => {
     const quizList = await quizzes.map((q) => {
       return { ...q.val(), key: q.key };
     });
-    await updateQuizList(quizList);
+
+    dispatch({
+      type: SET_FULL_QUIZ_LIST,
+      payload: { fullQuizList: quizList },
+    });
 
     /* redirect to new round */
     history.push(`/trivia/edit-round/${newRound.getKey()}`);

@@ -46,7 +46,6 @@ const Nav = () => {
     auth.signOut();
   };
 
-  console.log("auth", auth.currentUser);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

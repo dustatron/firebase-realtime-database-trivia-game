@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { shuffle } from "lodash";
 import { Card, Button } from "react-bootstrap";
 
-import { useUpdateCurrentAnswer } from "../../context/AnswersContext";
-import { clean } from "../../helper";
+// import { useUpdateCurrentAnswer } from "../../context/AnswersContext";
+import { clean } from "../../utils";
 
 import "./question.css";
 
@@ -12,8 +12,8 @@ const Question = ({
   handelDelete,
   q: { question, correct_answer, incorrect_answers },
 }) => {
-  const addAnswer = useUpdateCurrentAnswer();
-  const [answer, setAnswer] = useState("");
+  // const addAnswer = useUpdateCurrentAnswer();
+  // const [answer, setAnswer] = useState("");
   const [display, setDisplay] = useState([]);
   const [isShowingAnswers, setShowingAnswers] = useState(false);
 
@@ -30,8 +30,8 @@ const Question = ({
         selected: q,
       },
     };
-    addAnswer(answerState);
-    setAnswer(q);
+    // addAnswer(answerState);
+    // setAnswer(q);
   };
   const handleShowAnswer = () => {
     setShowingAnswers(!isShowingAnswers);
