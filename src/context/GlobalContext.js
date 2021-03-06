@@ -8,6 +8,7 @@ import {
   SET_FULL_QUIZ_LIST,
   SET_QUIZ_INDEX,
   UPDATE_CURRENT_AND_FULL,
+  SAVE_QUIZ,
 } from "./constants";
 
 export const globalStateContext = React.createContext();
@@ -51,6 +52,15 @@ const reducer = (state, action) => {
         ...state,
         currentQuiz: payload.current,
         fullQuizList: payload.full,
+      };
+    case SAVE_QUIZ:
+      return {
+        ...state,
+        quiz: state.quiz
+          ? { ...state.quiz, [payload.name]: payload.rounds }
+          : {
+              [payload.name]: payload.rounds,
+            },
       };
 
     default:

@@ -57,7 +57,7 @@ const Trivia = () => {
         <Col sm={10}>
           <Switch>
             <Route exact path={path}>
-              <h2>Trivia Making made easy</h2>
+              <MakeQuiz />
             </Route>
             <Route path={`${path}/create`}>
               <CreateRound />
